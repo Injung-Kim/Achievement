@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-<link rel="stylesheet" href="/resources/css/bootMainPage(new).css">
+<link rel="stylesheet" href="/resources/css/bootMainPage(new.ver1).css">
 <script type="text/javascript" src="/resources/js/mainPage.js"></script>
 <script type="text/javascript" src="/resources/js/search.js"></script>
 
@@ -21,17 +21,25 @@
 
 </head>
 <body>
-<header>
-	<div class="left">
+<header style="display : flex;">
+	<!-- 로고 -->
+	<div class="logo">
 		<a href = "/">
-			<img src="/resources/img/AchievementWhite.png" width="250" height="100"
+			<img src="/resources/img/AchievementWhite.png" width="220" height="100"
 		alt="Achievement"  title="Achievement"> </a>
 	</div>
-	
-	<div class="right" style="padding:30px 20px;">
+	<!--메인 검색창  -->
+	<div class="searchHeader" style="padding:30px 20px;">
+		<form action="/search" method="get" id ="form" >
+			<input type="text" id="key" name="key" style="width: 320px;"/>
+			<button class="startBtn" id="sumbit" type="button"><i class="fas fa-search"></i></button>
+		</form>
+	</div>	
+	<!-- 로그인 -->
+	<div class="login" style="padding:30px 20px;">
 	<ul class="hdropdown">
 		<li>
-			<a href="#" class="fa fa-user fa-3x"></a>
+			<a href="#" class="fa fa-user fa-3x" style="color:#143642"></a>
 			<%if(session.getAttribute("login")==null || !(boolean)session.getAttribute("login")){ %>
 			<!-- 비로그인 상태 -->
 			<ul>
@@ -46,12 +54,6 @@
 			<%} %>
 		</li>
 	</ul>
-	</div>
-	<div class="center" style="padding:30px 20px;">
-		<form action="/search" method="get" id ="form" class="form-inline">
-			<input type="text" id="key" name="key" class="form-control" style="width: 320px;"/>
-				<button class="startBtn" id="sumbit" type="button"><i class="fas fa-search"></i></button>
-		</form>
 	</div>
 	
 </header>
