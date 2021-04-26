@@ -12,11 +12,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
+	$('#complaint').css({"background":"#EC9A29"})
+	$('#complaint').nextAll().css({"background":"#FFFFFF"})
 	// + 버튼 누르면 신고등록 페이지로 이동
-	$("#btnInsert").click(function() {
-		location.href="/admin/complaint/insert";	
-	});
+	
 		
 	//검색 버튼 동작
 	$("#btnSearch").click(function(){
@@ -25,49 +24,87 @@ $(document).ready(function() {
 });
 </script>
 
-
-
 <style type="text/css">
 @media (min-width: 900px) {
 	.container {
-	   font-family: "Noto Sans KR", sans-serif !important;
+	   
 	   width: 900px;
 	}
 }
+
+#move:hover tbody tr:hover td{
+background:#143642;
+color:#FFFFFF;
+}
+
+th{
+background-color: #A8201A;
+}
+
+.searchform{
+float:right; 
+margin:0px 3px 5px 3px;
+}
+
+#btnSearch{
+background-color: #143642;
+color: white;
+border-radius: 4px;
+}
+
 </style>
 
 
 <div class="container">		
 
 <!-- 페이지 타이틀 -->
-<h2 class="display-3 text-left">신고 목록	
-	<button type=button id="btnInsert" class="btn btn-danger">
-		<span class="glyphicon glyphicon-plus"></span>
-	</button>
-</h2>
-<hr style= "border: 1px solid #DAD2D8  ">
+<div class="container">
+<div class="left" style="font-size:30px; font-weight:bold;">신고 목록 <a href="/admin/complaint/insert"><i class="fas fa-plus"></i></a></div>
+	<div><span>&nbsp</span></div>
+	
+<div class="searchform">
+	<form class="seachform" id="searchForm" action="/admin/complaint/list" method="get">
+	
+	 	<select name="searchType">
+			<%-- <option ${(param.searchType == "comNo")?"selected":"" } value="comNo">번호</option>
+			<option ${(param.searchType == "caTitle")?"selected":"" } value="caTitle">카테고리</option> --%>
+			<option ${(param.searchType == "ch_title")?"selected":"" } value="ch_title">챌린지제목</option>
+			<option ${(param.searchType == "ch_content")?"selected":"" } value="ch_content">챌린지내용</option>
+			<option ${(param.searchType == "com_manage")?"selected":"" } value="com_manage">조치내역</option>
+		</select>
+    	
+	 
+	  <input type="text" name="searchKeyword"  value="${param.searchKeyword}" />
+	    
+			 <button type="submit" id="btnSearch">검색</button>
+	    </form>    
+	  </div>
+	
+	  
+
 	
 	
 <!-- 목록 테이블 -->
 <div class="card-body center-block">
   <div class="row">	
-	<table class = "table table-hover table-striped" style="text-align: center;">
+	<table class = "table table-striped table-hover table-condensed" id="move">
 					
 	<!-- 항목 -->
 	<thead>
 	<tr>
-		<th><center>번호</center></th>
-		<th><center>신고날짜</center></th>
-		<th><center>챌린지 제목</center></th>
-		<th><center>카테고리</center></th>
-		<th><center>신고내용</center></th>
-		<th><center>경고횟수</center></th>
-		<th><center>조치내역</center></th>
+		<th>번호</th>
+		<th>신고날짜</th>
+		<th>챌린지 제목</th>
+		<th>카테고리</th>
+		<th>신고내용</th>
+		<th>경고횟수</th>
+		<th>조치내역</th>
 	</tr>
 	</thead>
 					
 	<!-- 내용 -->
 	<tbody>		
+	
 	<%	for(int i=0; i<searchComplaint.size(); i++) { %>
 	<tr>
 		<td><%=searchComplaint.get(i).getComNo() %></td>
@@ -85,26 +122,7 @@ $(document).ready(function() {
 </div> <!-- card-body -->
 	
 <!-- 검색창 -->
-<form id="searchForm" action="/admin/complaint/list" method="get">
-<div class="row">
-	<div class="col-md-2 col-md-offset-3">
-	 	<select name="searchType" class="form-control">
-			<%-- <option ${(param.searchType == "comNo")?"selected":"" } value="comNo">번호</option>
-			<option ${(param.searchType == "caTitle")?"selected":"" } value="caTitle">카테고리</option> --%>
-			<option ${(param.searchType == "ch_title")?"selected":"" } value="ch_title">챌린지제목</option>
-			<option ${(param.searchType == "ch_content")?"selected":"" } value="ch_content">챌린지내용</option>
-			<option ${(param.searchType == "com_manage")?"selected":"" } value="com_manage">조치내역</option>
-		</select>
-    </div>
 
-	<div class="col-md-4">
-	 <div class="input-group">
-	  <input type="text" name="searchKeyword" class="form-control" value="${param.searchKeyword}" />
-	    <span class="input-group-btn">
-			 <button type="submit" id="btnSearch" class="btn btn-default">검색</button>
-	    </span>
-	  </div> <!-- input-group -->
-	 </div> <!-- col-md-4 --> 
 	</div> <!-- row -->
 </form>
 </div><!-- container --> 

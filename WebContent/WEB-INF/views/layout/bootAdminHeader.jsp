@@ -41,11 +41,5 @@
 		</li>
 	</ul>
 	</div>
-	<div class="center" style="padding: 30px 20px;">
-		<form action="#" method="get">
-			<input type="text" id="search" name="search" />
-				<button class="startBtn"><i class="fas fa-search"></i></button>
-		</form>
-	</div>
 	
 </header>

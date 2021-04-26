@@ -106,11 +106,25 @@ public class UserServiceImpl implements UserService {
 		int reAmount=refunds.getReAmount()+(point*100); //환불 받을 금액
 		int refundableAmount = refunds.getRefundableAmount()-(point*100); //남은 환불액
 		
+		
+		
 		refunds.setRePoint(point); //사용 포인트
 		refunds.setReAmount(reAmount); //환불 받을 금액 
 		refunds.setRefundableAmount(refundableAmount); //남은 환불액
 		return refunds;
 	}
+	@Override
+	public int getRefundablePoint(HttpServletRequest req) {
+		//환불 가능 포인트
+		String param = req.getParameter("refundablePoint");
+		int refundablePoint = 0;
+		if(param != null && !"".equals(param)) {
+			refundablePoint = Integer.parseInt(param);
+		}
+		
+		return refundablePoint;
+	}
+	
 	@Override
 	public int getMypagePoint(int uNo) {
 		//현재 포인트 반환

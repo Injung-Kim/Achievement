@@ -8,7 +8,13 @@
 
 <%@ include file="/WEB-INF/views/layout/bootAdminHeader.jsp" %>
 <%@ include file="/WEB-INF/views/layout/bootAdminNavigation.jsp" %>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#notice').css({"background":"#EC9A29"})
+	$('#notice').nextAll().css({"background":"#FFFFFF"})
+	// + 버튼 누르면 신고등록 페이지로 이동
+});
+</script>
 
 <style type="text/css">
 
@@ -44,13 +50,19 @@ background:#143642;
 color:#FFFFFF;
 }
 
+
+
 </style>
 
 
 
+
 <div class="container">
-<h1>공지사항 목록</h1>
-<hr>
+<div class="left" style="font-size:30px; font-weight:bold;">공지사항 목록 <a href="/admin/writenot"><i class="fas fa-plus"></i></a></div>
+	<div><span>&nbsp</span></div>
+
+
+
 
 <div class="searchform">
 <form action="/admin/notice" method="get">
@@ -62,6 +74,8 @@ color:#FFFFFF;
 <button id="btnSearch">검색</button>
 </form>
 </div>
+
+
 
 <table class="table table-striped table-hover table-condensed" id="move">
 <tr>
@@ -87,8 +101,8 @@ color:#FFFFFF;
 </tr>
 <%	} %>
 </table>
-<hr>
-<button type="button" onclick="location.href='/admin/writenot' " class="button">글쓰기</button>
+
+
 
 
 </div>

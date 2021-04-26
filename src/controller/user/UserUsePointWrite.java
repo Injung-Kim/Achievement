@@ -27,10 +27,26 @@ public class UserUsePointWrite extends HttpServlet {
 		//사용 포인트
 		int curPoint = userService.getCurPoint(req);
 		int uNo = userService.getuNo(req);
+		int refundablePoint = userService.getRefundablePoint(req);
+		
 		//값이 0미만으로 떨어질경우 또는 사용 포인트가 현재 포인트보다 많을경우
 		if(refunds.getRefundableAmount()<0 || curPoint < refunds.getRePoint()) {
-			resp.sendRedirect("/");
+			String text ="사용 포인트가 현재 포인트보다 많습니다";
+			req.setAttribute("text", text);
+			req.getRequestDispatcher("/WEB-INF/views/userUsePoint/error.jsp")
+			.forward(req, resp);
+			return;
 		}
+		//환불 가능 금액과 포인트가 일치해야 한다
+		if(refundablePoint != refunds.getRePoint()) {
+			String text ="사용할 포인트와 사용 가능한 포인트는 일치해야 합니다.";
+			req.setAttribute("text", text);
+			req.getRequestDispatcher("/WEB-INF/views/userUsePoint/error.jsp")
+			.forward(req, resp);
+			return;
+		}
+		
+		
 		//환불을 위한 토큰 생성 
 		String token=userService.refundsToken();
 		

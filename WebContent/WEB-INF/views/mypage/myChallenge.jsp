@@ -207,7 +207,7 @@ function drawChart() {
 	<% File challImg = new File(request.getServletContext().getRealPath("upload") + "\\" + list.get(i).getChStoredName()); %>
 	
 	<% if(list.get(i).getChStoredName() != null && challImg.exists()) {%>
-	<img src="/upload/<%=list.get(i).getChStoredName() %>">
+	<img src="/upload/<%=list.get(i).getChStoredName() %>" style="width:100%">
 	<% } else {%>
 	<img src="/resources/img/logoRed.png" style="width:100%">
 	<% } %>

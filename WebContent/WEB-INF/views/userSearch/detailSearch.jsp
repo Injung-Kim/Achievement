@@ -16,7 +16,7 @@ $(document).ready(function(){
 	<%if(challenge.get(i).getChTitle() != null){ %>
 	<div class = "imgarea" >
 	<%if(challenge.get(i).getChStoredName().contains("저장")){ %>
-		<a class="scroll" href="/user/challenge/view?chNo=<%=challenge.get(i).getChNo()%>"><img src="/resources/img/challenge.png" alt="챌린지 임시페이지"/></a>
+		<a class="scroll" href="/user/challenge/view?chNo=<%=challenge.get(i).getChNo()%>"><img src="/resources/img/AchievementWhite.png" width="225px" height="225px" alt="챌린지 임시페이지"/></a>
 	<%} else {%>
 		<a class="scroll" href="/user/challenge/view?chNo=<%=challenge.get(i).getChNo()%>"><img src="/upload/<%=challenge.get(i).getChStoredName() %>" alt="챌린지 저장페이지"/></a>
 	<%} %>

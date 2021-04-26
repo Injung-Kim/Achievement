@@ -7,10 +7,8 @@
 <%List<RefundPoint> list = (List<RefundPoint>)request.getAttribute("list"); %>
 <div class="container">
 <div id="tableHeader">
+	<div><span>&nbsp</span></div>
 	<div class="left" style="font-size:30px; font-weight:bold;">포인트 사용 </div>
-	<div><span>&nbsp</span></div>	
-	<div><span>&nbsp</span></div>
-	<div><span>&nbsp</span></div>
 	<div><hr></div>
 </div>
 

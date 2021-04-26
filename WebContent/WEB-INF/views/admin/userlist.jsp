@@ -16,9 +16,24 @@ $(document).ready(function(){
 </script>
 
 <body>
+
 <div class="content">
+<div class="left" style="font-size:30px; font-weight:bold;">회원 목록 </div>
+	<div><span>&nbsp</span></div>
+
+
 <fieldset class="search">
 <form>
+<div class="form-group">
+	<button id=btnSearch>검색</button>
+</div>
+
+<div class="form-group">
+	<label for="search" >
+	<input type="text" id="search" name="search" class="select textbox"/>
+	</label>
+</div>
+
 <div class="form-group">
 	<select name="grade" class="contoller">
 		<option value="U">회원</option>	
@@ -31,17 +46,11 @@ $(document).ready(function(){
 		<option value="u_nick">닉네임</option>
 	</select>
 </div>
-<div class="form-group">
-	<label for="search" >
-	<input type="text" id="search" name="search" class="select textbox"/>
-	</label>
-</div>
-<div class="form-group">
-	<button class="btn">검색</button>
-</div>
+
+
 </form>
 </fieldset>
-<table>
+<table class="table table-striped table-hover table-condensed" id="move">
 <tr>
 	<th style="width:5%">No.</th>
 	<th style="width:5%">등급</th>
@@ -73,66 +82,24 @@ $(document).ready(function(){
 .content{
  width : 900px;
  margin : 0 auto;
- text-align: center;
+
 }
 .search{
 	border : none;
 }
 
 .form-group{	
-	float : left;
-	margin-left : 10px;
+	float:right;
+	margin:0px 3px 5px 3px;
 }
 
-select{
- width : 8em;
- padding: 0.7em 0.3em;
- border-radius: 5px;
- border:1px solid #0009;
-}
-.textbox{
- width : 30em;
- line-height: 20px;
- padding: 0.6em 0.8em;
- border-radius: 5px;
- border:1px solid #0009;
-}
 .btn{
- width : 8em;
- padding: 0.6em 0.9em;
- border-radius: 5px;
- border:1px solid #0009;
- background : #E3564F;
- color:#fff;
- box-shadow: 0 5px 8px rgba(0,0,0,0.19), 0 3px 3px rgba(0,0,0,0.23);
- 
-}
-table{
-	width: 100%;
-	border-top : 1px solid #ccc;
-	border-collapse: collapse;
- 	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
-table th{
-	background : #DAD2D8;
-	padding: 7px;
-}
-table td{
-	padding : 5px;
-	border-top : 1px solid #ccc;
-	font-size: small;
-	color: #8C8C8C;
-}
-tr:hover td{
-	background: #EDE9EC;
-	color:black;
+background-color: #143642;
+color: white;
+border-radius: 4px;
 }
 
-.view{
-	text-decoration: none;
-	text-align:center;
-	color: red;
-}
+
 
 
 .text-center{
@@ -159,8 +126,22 @@ tr:hover td{
 	border-radius : 100%;
 }
 
+th{
+background-color: #A8201A;
+}
+
+#move:hover tbody tr:hover td{
+background:#143642;
+color:#FFFFFF;
+}
+
+#btnSearch{
+background-color: #143642;
+color: white;
+border-radius: 4px;
+}
 </style>
-<%@ include file="/WEB-INF/views/admin/userPaging.jsp" %>
+<%@ include file="/WEB-INF/views/layout/paging.jsp" %>
 <br>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 

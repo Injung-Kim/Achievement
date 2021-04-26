@@ -103,6 +103,12 @@ public interface UserService {
 	 * @param token - 토큰
 	 */
 	public void refunds(Refunds refunds, String token) throws IOException;
+	/**
+	 * 사용할 수 있는 포인트
+	 * @param req - 요청 객체
+	 * @return 사용할 수 있는 포인트 반환
+	 */
+	public int getRefundablePoint(HttpServletRequest req);
 
 
 	

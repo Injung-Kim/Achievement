@@ -1029,4 +1029,126 @@ public class UserChallengeDaoImpl implements UserChallengeDao {
 
 		return res;
 	}
+	@Override
+	public int selectReviewCntAll(Connection conn, Challenge challenge) {
+		String sql = "";
+		sql += "select count(*) as cnt from participation";
+		sql += " where not (pa_review = '후기없음') and ch_no = ?";
+		
+		//총 챌린지 수
+		int cnt = 0;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, challenge.getChNo());
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				cnt = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+		
+		return cnt;
+	}
+	@Override
+	public List<Participation> selectParticipationAll(Connection conn, Paging paging, Challenge challenge) {
+		String sql = "";
+		sql += "SELECT * FROM (";
+		sql += " 	SELECT rownum rnum, PA.* FROM (";
+		sql += " 		SELECT";
+		sql += " 			pa_no, ch_no, u_no, pa_create_date, pa_is_success,";
+		sql += " 			 pa_review, pa_like";
+		sql += " 		 FROM participation";
+		sql += "		 where not (pa_review = '후기없음') and ch_no = ?";
+		sql += " 		order by pa_no desc";
+		sql += "	) PA";
+		sql += " ) participation";
+		sql += " where rnum between ? and ?";
+
+		//결과 저장할 List
+		List<Participation> participationList = new ArrayList<>();
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			ps.setInt(1, challenge.getChNo());
+			ps.setInt(2, paging.getStartNo());
+			ps.setInt(3, paging.getEndNo());
+
+			rs = ps.executeQuery(); //SQL 수행 및 결과집합 저장
+
+			//조회 결과 처리
+			while(rs.next()) {
+				Participation pa = new Participation();
+
+				//결과값 한 행 처리
+				pa.setPaNo(rs.getInt("pa_no"));
+				pa.setuNo(rs.getInt("u_no"));
+				pa.setChNo(rs.getInt("ch_no"));
+				pa.setPaCreateDate(rs.getDate("pa_create_date"));
+				pa.setPaReview(rs.getString("pa_review"));
+				pa.setPaIsSuccess(rs.getString("pa_is_success"));
+				pa.setPaLike(rs.getString("pa_like"));
+				//리스트에 결과값 저장
+				participationList.add(pa);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//DB객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+
+		//최종 결과 반환
+
+		return participationList;
+	}
+	//참가자 조회
+	@Override
+	public Participation selectParticipationReview(Connection conn, Participation participation) {
+		String sql = "";
+		sql += "SELECT * FROM ";
+		sql += " participation";
+		sql += " where pa_no = ?";
+
+		//결과 저장할 객체
+		Participation result = null;
+		try {
+			ps = conn.prepareStatement(sql); //SQL수행 객체
+			
+			ps.setInt(1, participation.getPaNo());
+			rs = ps.executeQuery(); //SQL 수행 및 결과집합 저장
+
+			//조회 결과 처리
+			if(rs.next()) {
+				result = new Participation();
+				//결과값 한 행 처리
+				result.setPaNo(rs.getInt("pa_no"));
+				result.setuNo(rs.getInt("u_no"));
+				result.setChNo(rs.getInt("ch_no"));
+				result.setPaCreateDate(rs.getDate("pa_create_date"));
+				result.setPaReview(rs.getString("pa_review"));
+				result.setPaIsSuccess(rs.getString("pa_is_success"));
+				result.setPaLike(rs.getString("pa_like"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//DB객체 닫기
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(ps);
+		}
+
+		//최종 결과 반환
+
+		return result;
+	}
 }

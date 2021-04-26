@@ -885,4 +885,48 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		}
 		
 	}
+	@Override
+	public Paging getPagingReview(HttpServletRequest req, Challenge challenge) {
+		//전달파라미터 curPage 파싱
+		String param = req.getParameter("curPage");
+		int curPage = 0;
+		if(param != null && !"".equals(param)) {
+			curPage = Integer.parseInt(param);
+		}
+
+		//challenge 테이블의 총 챌린지 수를 조회한다
+		int totalCount = userChallengeDao.selectReviewCntAll(JDBCTemplate.getConnection(), challenge);
+
+
+		Paging paging = new Paging(totalCount, curPage);
+
+		return paging;
+		
+	}
+	@Override
+	public List<Participation> getParticipationList(Challenge challenge, Paging paging) {
+		//리뷰 전체 리스트 
+		return userChallengeDao.selectParticipationAll(JDBCTemplate.getConnection(), paging, challenge);
+	}
+	@Override
+	public Participation getPaNo(HttpServletRequest req) {
+		//chNo를 저장할 객체 생성
+		Participation paNo = new Participation();
+
+		//chNo 전달파라미터 검증 - null, ""
+		String param = req.getParameter("paNo");
+		if(param!=null && !"".equals(param)) {
+			//chNo 전달파라미터 추출
+			paNo.setPaNo( Integer.parseInt(param) );
+		}
+
+		//결과 객체 반환
+		return paNo;
+	}
+	@Override
+	public Participation getParticipation(Participation participation) {
+		// TODO Auto-generated method stub
+		return userChallengeDao.selectParticipationReview(JDBCTemplate.getConnection(), participation);
+	}
+	
 }

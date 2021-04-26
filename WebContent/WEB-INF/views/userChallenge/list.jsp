@@ -89,6 +89,7 @@ $(document).ready(function(){
  $('.imgarr  img').click(function(){
 	 $(this).css("border","2px dotted #8C8C8C")
  })
+ 
 })
 </script>
 <div class="container">
@@ -126,7 +127,8 @@ $(document).ready(function(){
 			<img src="/upload/<%=list.get(i).getChStoredName()%>" height="150" />
 		<%} %>
 		<p><%=list.get(i).getChTitle() %></p>
-		</a></div>
+		</a>
+		<a href="/user/challenge/review/list?chNo=<%=list.get(i).getChNo()%>"><button type="button" id="reviewBtn" class="btn btn-info" >리뷰보기</button></a></div>
 	<%} %>
 </div>
 

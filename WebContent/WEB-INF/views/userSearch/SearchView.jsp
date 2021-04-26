@@ -100,7 +100,7 @@ $(document).ready(function(){
 <% for(int i = 0; i< list.size(); i++){ %>
 	<div class = "imgarea" >
 	<%if(list.get(i).getChStoredName().contains("저장")){ %>
-		<a class="scroll" href="/user/challenge/view?chNo=<%=list.get(i).getChNo()%>"><img src="/resources/img/challenge.png" alt="챌린지 임시페이지"/></a>
+		<a class="scroll" href="/user/challenge/view?chNo=<%=list.get(i).getChNo()%>"><img src="/resources/img/AchievementWhite.png" width="225px" height="225px" alt="챌린지 임시페이지"/></a>
 	<%} else {%>
 		<a class="scroll" href="/user/challenge/view?chNo=<%=list.get(i).getChNo()%>"><img src="/upload/<%=list.get(i).getChStoredName() %>" alt="챌린지 저장페이지"/></a>
 	<%} %>

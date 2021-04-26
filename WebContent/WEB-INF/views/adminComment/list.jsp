@@ -9,6 +9,14 @@
 <%@ include file="/WEB-INF/views/layout/bootAdminHeader.jsp" %>
 <%@ include file="/WEB-INF/views/layout/bootAdminNavigation.jsp" %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#comment').css({"background":"#EC9A29"})
+	$('#comment').nextAll().css({"background":"#FFFFFF"})
+	// + 버튼 누르면 신고등록 페이지로 이동
+});
+</script>
+
 <style type="text/css">
 .container{
 width:900px;
@@ -38,8 +46,8 @@ color:#FFFFFF;
 
 <div class="container">
 
-<h1>댓글 목록</h1>
-<hr>
+<div class="left" style="font-size:30px; font-weight:bold;">댓글 목록 </div>
+	<div><span>&nbsp</span></div>
 
 <div class="searchform">
 <form action="/admin/commentlist" method="get">

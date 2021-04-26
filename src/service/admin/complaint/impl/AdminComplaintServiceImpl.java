@@ -78,7 +78,7 @@ public class AdminComplaintServiceImpl implements AdminComplaintService {
 			
 			// 조회한 리스트 갯수 
 			int totalCount = complaintDao.getCntList(conn, search_type, search_keyword);
-			int listCount = 5; //페이지당 보여질 리스트 개수
+			int listCount = 10; //페이지당 보여질 리스트 개수
 			
 			// 페이징 객체 생성
 			Paging paging = new Paging(totalCount, curPage, listCount);

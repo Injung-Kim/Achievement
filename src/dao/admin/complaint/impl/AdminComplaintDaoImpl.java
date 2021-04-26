@@ -96,7 +96,6 @@ public class AdminComplaintDaoImpl implements AdminComplaintDao {
 		
 			ps.setInt(1, complaintPaging.getStartNo()); //페이지 시작번호
 			ps.setInt(2, complaintPaging.getEndNo());	//페이지 끝번호
-		
 			rs = ps.executeQuery(); //SQL수행 및 결과집합 저장
 			
 			//조회결과 처리

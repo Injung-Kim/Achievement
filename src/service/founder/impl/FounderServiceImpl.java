@@ -372,7 +372,7 @@ public class FounderServiceImpl implements FounderService {
 		Connection conn = JDBCTemplate.getConnection();
 		Map<Integer, Participation> paSuMap = new HashMap<>();
 		//성공자 불러오기 
-		for(Integer key: paRate.keySet()) {
+		for(Integer key: paRate.keySet()) { //인증 성공률을 반복 조회
 			if(paRate.get(key)>=50) { //참여자 성공 key = paNo value participation 유저번호와 챌린지 번호를 저장한다 
 				Participation participation=founderDao.selectPaIsSuccess(conn,key);
 				paSuMap.put(key, participation); //성공자 객체 저장

@@ -250,6 +250,35 @@ public interface UserChallengeService {
 	 * @param paybList - 환급 정보
 	 */
 	public void paybackInsert(List<Payback> paybList);
+	
+	/**
+	 * 리뷰 페이징
+	 * @param req - 전달 객체
+	 * @param challenge - challenge 번호
+	 * @return - 페이징
+	 */
+	public Paging getPagingReview(HttpServletRequest req, Challenge challenge);
+	
+	/**
+	 * 리뷰 리스트 가져오기
+	 * @param challenge - 챌린지 번호
+	 * @return 리뷰 리스트
+	 */
+	public List<Participation> getParticipationList(Challenge challenge, Paging paging);
+	
+	/**
+	 * 참가자 번호 가져오기
+	 * @param req - 요청 객체
+	 * @return 참가자 번호를 가진 객체 반환
+	 */
+	public Participation getPaNo(HttpServletRequest req);
+	
+	/**
+	 * 참가자 반환하기
+	 * @param participation - 참가자 번호
+	 * @return 조회한 참가자 가져오기
+	 */
+	public Participation getParticipation(Participation participation);
 }
 
 
