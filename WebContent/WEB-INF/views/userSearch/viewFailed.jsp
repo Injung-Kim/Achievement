@@ -8,9 +8,9 @@
 }
 .detail{
 	border : 1px solid #ccc;
-	width : 750px;
+	width : 100%;
 	height: 125px;
-	margin: 15px auto;
+	margin: 50px auto;
 	display: flex;
 	flex-flow : row nowrap;
 	justify-content: space-between;
@@ -36,7 +36,7 @@
 .checkdiv{
 	display: flex;
 	flex-flow : row wrap;
-	justify-content: space-around;
+	justify-content: flex-start;
 	border-left: 2px solid black;
 	padding: 15px;
 }
@@ -50,7 +50,6 @@
 	width : 15%;
 	height: 24px;
 	float: right;
-	margin-top: 50px;
 }
 
 .result{
@@ -86,6 +85,7 @@
 </style>
 <%@ include file="/WEB-INF/views/layout/bootHeader.jsp" %>
 <%@ include file="/WEB-INF/views/layout/bootNavigation.jsp" %>
+
 <%@ include file="/WEB-INF/views/userSearch/detailCheckbox.jsp" %>
 <%@ include file="/WEB-INF/views/userSearch/searchFailed.jsp" %>
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

@@ -16,7 +16,6 @@
 	width : 100%;
 	display: table;
 	padding : 30px;
-	position : relative;
 	top : -70px;
 	z-index: -1;
 }

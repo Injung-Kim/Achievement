@@ -23,7 +23,7 @@ $(document).ready(function(){
 	 var lists = [];
 	 $("input[name='ca_no']:checked").each(function(i){
 		 if($(this).val() === "0"){
-		 lists = ["1","2","3","4","5","6","7"]
+		 lists = ["1","2","3","4","5","6","7","8"]
 		 }else{
 		 lists.push($(this).val())
 		 }
@@ -115,8 +115,8 @@ $(document).ready(function(){
 			</p>
 	</div>
 <%} %>
-	<%@ include file="/WEB-INF/views/userSearch/searchPaging/searchPaging.jsp" %>
 	</div>
 </div>
+	<%@ include file="/WEB-INF/views/userSearch/searchPaging/searchPaging.jsp" %>
 </body>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>

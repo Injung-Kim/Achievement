@@ -25,7 +25,7 @@ $(document).ready(function(){
 <fieldset class="search">
 <form>
 <div class="form-group">
-	<button id=btnSearch>검색</button>
+	<button id="btnSearch">검색</button>
 </div>
 
 <div class="form-group">
@@ -141,7 +141,7 @@ color: white;
 border-radius: 4px;
 }
 </style>
-<%@ include file="/WEB-INF/views/layout/paging.jsp" %>
+<%@ include file="/WEB-INF/views/admin/userPaging.jsp" %>
 <br>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 
