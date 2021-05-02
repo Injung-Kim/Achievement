@@ -85,14 +85,19 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Users selectUser(HttpServletRequest req) {
 		String param = req.getParameter("userno");
+		String param2 = req.getParameter("grade");
 		
 		int userno = 0;
 		if(param!=null && !param.equals("")) {
 			userno = Integer.parseInt(param);
 		}
-		
+		String grade = "";
+		if(param2!=null && !param2.equals("")) {
+			grade = param2;
+		}
 		Users users = new Users();
 		users.setUserNo(userno);
+		users.setGrade(grade);
 		return users;
 	}
 	@Override
@@ -106,6 +111,18 @@ public class UserServiceImpl implements UserService{
 		}else {
 			JDBCTemplate.rollback(conn);
 			return 0;
+		}
+	}
+	@Override
+	public int updateUser(Users users) {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = userDao.updateUser(conn, users);
+		if(result >= 1) {
+			JDBCTemplate.commit(conn);
+			return result;
+		}else {
+			JDBCTemplate.rollback(conn);
+			return result;
 		}
 	}
 }

@@ -37,7 +37,7 @@ public interface UserService {
 	public Users getUserInfo(Users users);
 	
 	/**
-	 * 삭제할 회원의 회원번호를 전달받아 dto로 반환
+	 * 변경할 회원의 회원번호를 전달받아 dto로 반환
 	 * 
 	 * @param req - 회원번호가 담긴 요청객체
 	 * @return 회원번호가 저장된 Users객체
@@ -50,6 +50,12 @@ public interface UserService {
 	 * @return - 성공여부(성공시 1, 실패시 0)
 	 */
 	public int deleteUser(Users users);
+	/**
+	 * 회원번호를 전달받아 해당 회원 등급 전환하기
+	 * 
+	 * @param users - 회원정보가 담긴 dto객체
+	 * @return 성공여부(성공시 1 실패시 0)
+	 */
+	public int updateUser(Users users);
 	
-
 }

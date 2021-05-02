@@ -47,6 +47,14 @@ public interface UserDao {
 	 * @return 삭제 성공시 1 반환, 실패시 0 반환
 	 */
 	int deleteUser(Connection conn, Users users);
+	/**
+	 * 요청받은 회원 등급 변경
+	 * 
+	 * @param conn  - DB접속
+	 * @param users - 회원정보와 등급이 담긴 Users객체
+	 * @return 성공여부(삭제 성공시 1 반환, 실패시 0 반환
+	 */
+	int updateUser(Connection conn, Users users);
 	
 	
 }

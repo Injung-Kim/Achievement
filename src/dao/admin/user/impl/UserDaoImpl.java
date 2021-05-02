@@ -132,18 +132,37 @@ public class UserDaoImpl implements UserDao{
 		String sql ="";
 		sql += "DELETE users WHERE u_no = ?";
 		int userno = users.getUserNo();
+		int res = -1;
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, userno);
-			ps.executeQuery();
+			res = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			JDBCTemplate.close(ps);
-		}if(userno == 0){
-			return 0; //삭제될 값이 없는 경우 0반환
-		}else {
-			return 1; //삭제 성공시 1반환
 		}
+		return res;
+	}
+	@Override
+	public int updateUser(Connection conn, Users users) {
+		String sql = "";
+		if(users.getGrade().equals("U")) {
+			sql += "UPDATE users SET u_grade='M',u_nick='매니저' " + 
+			   " WHERE u_no = ?";
+		} else if( users.getGrade().equals("M")) {
+			sql += "UPDATE users SET u_grade='U',u_nick='회원' " + 
+				" WHERE u_no = ?";
+		}
+		int res = -1;
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, users.getUserNo());
+				res = ps.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		//System.out.println(res);
+		return res;
 	}
 }

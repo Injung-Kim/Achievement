@@ -35,14 +35,45 @@ $(document).ready(function(){
 				}
 			})
 		}
-	})
+	}) //ajax delete end
+	$('.update').click(function(){
+		var grade = '<%=users.getGrade()%>'
+		
+		if(confirm("등급을 전환하시겠습니까?")){
+			$.ajax({
+				type : "post"
+				, url : "/admin/update?userno="+<%=users.getUserNo()%>
+				, data :{'grade' : grade}
+				, dataType : "html"
+				, success : function(result){
+					console.log("update성공")
+					if(result === "success"){
+						alert("등급이 변경되었습니다")
+						setTimeout('location.reload()',1000)
+					}
+				}
+				, error : function(){
+					console.log("update실패")
+				}
+			})
+		}
+	})//ajax update end
+	
 })
 </script>
 <body>
 <div class="content">
 <div style="all : unset; display: block;">
 <button type="button" onclick="location.href='/admin/user/list'" class="btn">목록으로</button>
+<!-- manager1은 전체 등급변환, 삭제 권한 부여 -->
+<%if( session.getAttribute("u_id").equals("manager1")){ %>
 <button type="button" class="btn delete">회원정보 삭제</button>
+<button type="button" class="btn update">등급 전환</button>
+<!-- manager1 이외 관리자는 회원에만 한하여 삭제 권한 부여 -->
+<%} else if( session.getAttribute("u_grade").equals("M") && !users.getGrade().equals("M")){%>
+<button type="button" class="btn delete">회원정보 삭제</button>
+<%} %>
+
 </div>
 <div class="maininfo">
 <h3>회원 정보</h3>

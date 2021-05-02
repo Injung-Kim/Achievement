@@ -16,11 +16,10 @@ $(document).ready(function(){
 </script>
 
 <body>
-
+<!-- 최고 관리자(manager1) 관리자 생성 권한부여  -->
 <div class="content">
-<div class="left" style="font-size:30px; font-weight:bold;">회원 목록 </div>
-	<div><span>&nbsp</span></div>
-
+<div class="left" style="font-size:30px; font-weight:bold;">회원 목록</div>
+<div><span>&nbsp</span></div>
 
 <fieldset class="search">
 <form>
@@ -77,8 +76,10 @@ $(document).ready(function(){
 	<%} %>
 </table>
 </div>
+
 </body>
 <style type="text/css">
+
 .content{
  width : 900px;
  margin : 0 auto;
@@ -128,6 +129,7 @@ border-radius: 4px;
 
 th{
 background-color: #A8201A;
+color : white;
 }
 
 #move:hover tbody tr:hover td{

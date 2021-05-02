@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.UserPoint;
 import dto.Users;
@@ -24,6 +25,11 @@ public class AdminUserViewController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//System.out.println("/admin/user/view - [GET]");
+		//관리자 계정으로만 접근 가능 
+		HttpSession session = req.getSession();
+		if(session.getAttribute("login") == null || !session.getAttribute("u_grade").equals("M")) {
+			resp.sendRedirect("/");
+		}else {
 		
 		//유저번호를 받아 dto 저장하기
 		Users users = userService.getUserno(req);
@@ -51,5 +57,6 @@ public class AdminUserViewController extends HttpServlet {
 		req.setAttribute("currChallenge", currentChallenge);
 		
 		req.getRequestDispatcher("/WEB-INF/views/admin/userView.jsp").forward(req, resp);
+		}
 	}
 }
