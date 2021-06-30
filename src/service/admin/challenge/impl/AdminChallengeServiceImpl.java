@@ -294,9 +294,9 @@ public class AdminChallengeServiceImpl implements AdminChallengeService {
 			String rename = sdf.format(new Date());
 			
 			File uploadFolder = new File(req.getServletContext().getRealPath("upload")); // 업로드될 폴더 경로
-			File defaultImg = new File(req.getServletContext().getRealPath("resources/img/challenge.png")); //이미지 파일 경로
+			File defaultImg = new File(req.getServletContext().getRealPath("resources/img/AchievementWhite.png")); //이미지 파일 경로
 			
-			String origin = defaultImg.getName(); //파일의 본래 이름 challenge.png
+			String origin = defaultImg.getName(); //파일의 본래 이름 AchievementWhite.png
 			int dotIdx = origin.lastIndexOf("."); //가장 마지막 "."의 인덱스
 			String ext = origin.substring(dotIdx + 1); //확장자
 			String stored = rename +"."+ext; //저장 파일

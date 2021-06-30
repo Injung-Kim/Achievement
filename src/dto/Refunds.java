@@ -16,7 +16,10 @@ public class Refunds {
 	private String paybRefundAccount;
 	private String impUid;
 	private String merchantUid;
-
+	private String refundAvailability;
+	private int refundableAmount; 
+	
+	
 	// to String
 	@Override
 	public String toString() {
@@ -24,7 +27,8 @@ public class Refunds {
 				+ ", paybTaxFree=" + paybTaxFree + ", paybChecksum=" + paybChecksum + ", paybDate=" + paybDate
 				+ ", paybReason=" + paybReason + ", paybRefundHolder=" + paybRefundHolder + ", paybRefundBank="
 				+ paybRefundBank + ", paybRefundAccount=" + paybRefundAccount + ", impUid=" + impUid + ", merchantUid="
-				+ merchantUid + "]";
+				+ merchantUid + ", refundAvailability=" + refundAvailability + ", refundableAmount=" + refundableAmount
+				+ "]";
 	}
 
 	//getter setter
@@ -132,6 +136,22 @@ public class Refunds {
 		this.merchantUid = merchantUid;
 	}
 
+	public String getRefundAvailability() {
+		return refundAvailability;
+	}
+
+	public void setRefundAvailability(String refundAvailability) {
+		this.refundAvailability = refundAvailability;
+	}
+
+	public int getRefundableAmount() {
+		return refundableAmount;
+	}
+
+	public void setRefundableAmount(int refundableAmount) {
+		this.refundableAmount = refundableAmount;
+	}
+	
 
 
 }

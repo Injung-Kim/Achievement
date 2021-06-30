@@ -25,10 +25,16 @@ public class MypageDeleteController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpSession session = req.getSession(); // 세션 객체 생성	
-		//세션객체 받아오기
-		member =(Member) session.getAttribute("memberInfo"); 
-		mypage = (Mypage) session.getAttribute("mypageInfo"); 
+		HttpSession session = req.getSession(); // 세션 객체 생성
+		int uNo = (Integer)session.getAttribute("u_no"); // 현재 로그인된 유저아이디를 가져온다.	
+		
+		// 유저 정보를 가져오는 메소드
+		Member member = mypageService.getUserInfo(uNo); 
+		req.setAttribute("memberInfo", member);
+		
+		// 유저 정보(마이페이지)를 가져오는 메소드
+		Mypage mypage = mypageService.getMypageInfo(member.getUno());
+		req.setAttribute("mypageInfo", mypage); 
 				
 		req.getRequestDispatcher("/WEB-INF/views/mypage/myDelete.jsp")
 		   .forward(req, resp);	
@@ -42,8 +48,6 @@ public class MypageDeleteController extends HttpServlet {
 		// 전달 파라미터 가져옴
 		String paramId = req.getParameter("mId"); 
 		String paramPw = req.getParameter("mPW"); 
-		
-		System.out.println(req.getSession().getAttribute("u_id"));
 
 			int check = mypageService.deleteInfo(req);
 			if(check == 1) { 

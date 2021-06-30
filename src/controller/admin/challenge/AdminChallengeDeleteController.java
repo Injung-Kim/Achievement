@@ -29,6 +29,25 @@ public class AdminChallengeDeleteController extends HttpServlet {
 			resp.sendRedirect("/");
 			return;
 		}
+		//잘 못된 접근 방식
+		if(req.getParameter("chState")==null) {
+			String text = "잘 못된 접근 방식입니다.";
+			req.setAttribute("text", text);		
+			req.getRequestDispatcher("/WEB-INF/views/adminChallenge/error.jsp")
+			.forward(req, resp);
+			return;
+			//대기 이외에 수정 및 삭제가 있을시
+		}else {
+			if(!"W".equals(req.getParameter("chState"))) {
+				String text = "잘 못된 접근 방식입니다.";
+				req.setAttribute("text", text);		
+				req.getRequestDispatcher("/WEB-INF/views/adminChallenge/error.jsp")
+				.forward(req, resp);
+				return;
+			}
+
+		}
+		
 				
 		adminChallengeService.delete(req);
 		resp.sendRedirect("/admin/challenge/list");

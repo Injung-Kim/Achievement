@@ -8,24 +8,26 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/layout/session/sessionCheck.jsp" %>
 <%
-	Member memberInfo =(Member) session.getAttribute("memberInfo");
-	Mypage mypageInfo = (Mypage) session.getAttribute("mypageInfo");
-	List<Challenge> challList =(List)session.getAttribute("challList");
+	Member memberInfo =(Member) request.getAttribute("memberInfo");
+	Mypage mypageInfo = (Mypage) request.getAttribute("mypageInfo");
+	List<Challenge> challList =(List)request.getAttribute("challList");
 	
-	List<Payment> paymentList = (List<Payment>)session.getAttribute("paymentList"); // 유저 누적 결재액
-	List<Payback> paybackList = (List<Payback>)session.getAttribute("paybackList"); // 유저 누적 환급액
-	List<Participation> parList = (List<Participation>)session.getAttribute("parList"); //유저 참가챌린지
-	List<Refunds> refundsList = (List<Refunds>)session.getAttribute("refundsList"); // 전체 누적상금액
+	List<Payment> paymentList = (List<Payment>)request.getAttribute("paymentList"); // 유저 누적 결재액
+	List<Payback> paybackList = (List<Payback>)request.getAttribute("paybackList"); // 유저 누적 환급액
+	List<Participation> parList = (List<Participation>)request.getAttribute("parList"); //유저 참가챌린지
+	List<Refunds> refundsList = (List<Refunds>)request.getAttribute("refundsList"); // 전체 누적상금액
 		
-	List<Refunds> reqRefundsList = (List<Refunds>)session.getAttribute("reqRefundsList"); // 월별누적상금액
-	List<Payment> reqPaymentList = (List<Payment>)session.getAttribute("reqPaymentList"); // 월별누적결재액
-	List<Payback> reqPaybackList = (List<Payback>)session.getAttribute("reqPaybackList"); // 월별누적환급액
+	List<Refunds> reqRefundsList = (List<Refunds>)request.getAttribute("reqRefundsList"); // 월별누적상금액
+	List<Payment> reqPaymentList = (List<Payment>)request.getAttribute("reqPaymentList"); // 월별누적결재액
+	List<Payback> reqPaybackList = (List<Payback>)request.getAttribute("reqPaybackList"); // 월별누적환급액
 	
-	int refundsTotal = (int)session.getAttribute("refundsTotal"); //누적 총상금
-	int paymentTotal = (int)session.getAttribute("paymentTotal"); //누적 결재액
-	int refundsMonthTotal = (int)session.getAttribute("refundsMonthTotal"); //당월누적 상금액
-	int paymentMonthTotal = (int)session.getAttribute("paymentMonthTotal"); //당월누적 결재액
+	int refundsTotal = (int)request.getAttribute("refundsTotal"); //누적 총상금
+	int paymentTotal = (int)request.getAttribute("paymentTotal"); //누적 결재액
+	int refundsMonthTotal = (int)request.getAttribute("refundsMonthTotal"); //당월누적 상금액
+	int paymentMonthTotal = (int)request.getAttribute("paymentMonthTotal"); //당월누적 결재액
+	int paybackMonthTotal = (int)request.getAttribute("paybackMonthTotal"); //당월누적 환급액
 
 %>
 
@@ -178,7 +180,7 @@ table.type09 td {
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4"><%=memberInfo.getNick()%>님의 상금/결재 정보</th>
+    <th colspan="4"><%=memberInfo.getNick()%>님의 상금/결재 정보</th>
   </tr>
   </thead>
   
@@ -245,7 +247,7 @@ table.type09 td {
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4">타임라인</th>
+    <th colspan="4">타임라인</th>
   </tr>
   </thead>
   
@@ -276,7 +278,7 @@ table.type09 td {
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4">타임라인</th>
+    <th colspan="4">타임라인</th>
   </tr>
   </thead>
   
@@ -307,7 +309,7 @@ table.type09 td {
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4">타임라인</th>
+    <th colspan="4">타임라인</th>
   </tr>
   </thead>
   
@@ -331,4 +333,30 @@ table.type09 td {
   </tbody>
 </table>
 </div>
+
+
+<!-- 하단 상금 관련 토탈 div 영역  -->	
+<div style="height: 30px;"></div>
+<div id="totalTrade">
+
+<table class="type09">
+  <thead>
+  <tr>
+    <th colspan="4">타임라인 합계</th>
+  </tr>
+  </thead> 
+  <tbody> 
+ 	  <tr>   
+	  </tr> 
+	  <tr>			    
+	   <td><strong>상금 : <%=refundsMonthTotal %> (원)</strong></td>
+	   <td><strong>결제 : <%=paymentMonthTotal %> (원)</strong></td>
+	   <td><strong>환급 : <%=paybackMonthTotal %> (원)</strong></td>
+	  </tr>
+  </tbody>
+</table>
+
 </div>
+
+</div>
+

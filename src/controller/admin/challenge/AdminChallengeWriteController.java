@@ -54,6 +54,6 @@ public class AdminChallengeWriteController extends HttpServlet {
 		adminChallengeService.write(req);
 		
 		
-		resp.sendRedirect("/user/challenge/list");
+		resp.sendRedirect("/admin/challenge/list");
 	}
 }

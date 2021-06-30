@@ -2,6 +2,7 @@
 <%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/layout/session/sessionCheck.jsp" %>
 <%
 	Member memberInfo =(Member) session.getAttribute("memberInfo");
 	Mypage mypageInfo =(Mypage) session.getAttribute("mypageInfo");
@@ -184,6 +185,7 @@ $(document).ready(function(){
 	//--------입력된 input Date regex check-----	
 	$("input").blur(function(){
 		console.log("change")
+		console.log(flag1 + flag2 + flag3 + flag4)
 		if(flag1 && flag2 && flag3 && flag4){
 			$("#modifyBtn").css('background-color', '#143642');
 			$("#modifyBtn").text("전송가능");			
@@ -194,7 +196,7 @@ $(document).ready(function(){
 			$("#modifyBtn").text("전송불가");	
 			$("#modifyBtn").attr("disabled", true)
 		}	
-	})	
+	})
 })
 </script>
 <!------------------------------------------------------------  -->
@@ -290,7 +292,7 @@ $(document).ready(function(){
 	
 	<div class="banner"></div>
 	
-	<div style="text-align: center;">기존의 회원 정보 입력도 허용합니다.</div>	
+	<div style="text-align: center; color: #143642; font-size: 17px;">"기존의 회원 정보 입력도 허용합니다."</div>	
 	
 	<div class="item">
 	<span class="must">비밀번호</span><br>
@@ -318,7 +320,7 @@ $(document).ready(function(){
 	
 	<div class="item">
 	선호챌린지<br>
-	<input type= "text" id="mChall" name="mChall" value="기본첼린지" class="updateInput" placeholder="challenge.."><br>
+	<input type= "text" id="mChall" name="mChall" class="updateInput" placeholder="ex)기본챌린지"><br>
 	</div>
 	
 	<div class="item">

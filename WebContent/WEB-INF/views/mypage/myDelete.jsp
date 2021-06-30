@@ -2,10 +2,10 @@
 <%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ include file="/WEB-INF/views/layout/session/sessionCheck.jsp" %>
 <%
-	Member memberInfo =(Member) session.getAttribute("memberInfo");
-	Mypage mypageInfo =(Mypage) session.getAttribute("mypageInfo");
+	Member memberInfo =(Member) request.getAttribute("memberInfo");
+	Mypage mypageInfo =(Mypage) request.getAttribute("mypageInfo");
 %>  
     
 <script type="text/javascript">
@@ -82,7 +82,7 @@ $(document).ready(function(){
       justify-content: center;
       padding: 20px;
       overflow:auto; 
-      height: 700px;
+      height: 600px;
       }
       
       #deleteForm { /* 폼 태그 */
@@ -156,6 +156,35 @@ $(document).ready(function(){
       	color: red;
       	
       }
+      
+/* -------------------------------------- */      
+
+/* 경고 느낌표 / 텍스트 영역 css */
+
+#ExcMarkArea{
+	text-align: center;
+}
+
+#ExcMark{
+	background-color: #A8201A;
+	color: white;
+	font-size: 30px;
+	padding-left: 25px;
+	padding-right: 25px;
+	border-radius: 20px;
+	font-weight: 900;
+	
+}
+
+#ExcMarkText{
+	text-align: center;
+	font-size: larger;
+	margin: 20px;
+	color: #A8201A;
+	font-weight: 700;
+}
+      
+      
 /* --------------------------------------- */
 
 /* 폰트 크기 색 부여 클래스  */
@@ -178,6 +207,14 @@ $(document).ready(function(){
 	
 	<div class="banner"></div>
 	
+	<div id="ExcMarkArea">
+		<span id="ExcMark"> ! </span>
+	</div>
+	
+	<div id="ExcMarkText">
+		"회원 탈퇴시 해당 계정은 복구되지 않습니다."
+	</div>
+	
 	<div class="item">
 	<span>아이디</span><br>
 	<input type= "text" id="mId" name="mId" class="deleteInput" value="<%=memberInfo.getUid() %>" readonly="readonly"><br>
@@ -190,11 +227,13 @@ $(document).ready(function(){
 	<span id="sp2"></span>
 	</div>
 	
-
 	<div class="item" style="text-align: center;">
 	<button id="deleteBtn" disabled="disabled" type="button">전송불가</button>
 	<button id="backBtn" type="button">홈으로</button>	
 	</div>
- 
 </form>
 </div>
+
+
+
+

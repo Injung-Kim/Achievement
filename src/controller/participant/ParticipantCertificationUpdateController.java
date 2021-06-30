@@ -47,10 +47,6 @@ public class ParticipantCertificationUpdateController extends HttpServlet {
 		String title = participantService.getTitle(chNo); //chNo을 통한 제목 반환
 		String chWay = participantService.getChway(chNo); //chNo을 통한 인증 방법 반환
 		
-		System.out.println(certification);
-		System.out.println(title);
-		System.out.println(chWay);
-		
 		
 		req.setAttribute("title", title);
 		req.setAttribute("chWay", chWay);

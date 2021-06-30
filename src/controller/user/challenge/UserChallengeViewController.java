@@ -44,13 +44,15 @@ public class UserChallengeViewController extends HttpServlet {
 		Participation participation = challengeService.getParticipation(req);
 		
 		boolean isParticipation = challengeService.isParticipant(participation);
+		String chState = challengeService.getChState(challenge);
 		
 		if(isParticipation) {
 			session.setAttribute("participation", true);
 		}else {
 			session.setAttribute("participation", false);
 		}
-		
+		//현재 챌린지 상태
+		session.setAttribute("chState", chState);
 		session.setAttribute("chNo", challenge.getChNo()); //chNo저장
 		
 		//MODEL값 전달

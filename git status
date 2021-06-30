@@ -1,0 +1,80 @@
+[33mcommit d66302bd8d6a380447fe961a4f4816fa440a4388[m[33m ([m[1;36mHEAD -> [m[1;32mpost[m[33m)[m
+Author: jhyuk97 <jhyuk97@naver.com>
+Date:   Mon Apr 19 20:42:57 2021 +0900
+
+    board 내용 추가
+
+[33mcommit 044b9700b0529e98cb30890608c6bbca2b1fc3cd[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Mon Apr 19 18:56:11 2021 +0900
+
+    리스타트 지점
+
+[33mcommit 145634759296c9ef54519796a521b458118680db[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Mon Apr 19 18:49:37 2021 +0900
+
+    리스타트 지점
+
+[33mcommit 2048020f338e739bca5ad1f9a17a47e214be6a0d[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Mon Apr 19 17:58:58 2021 +0900
+
+    좋아요 기능 완성
+
+[33mcommit 4cc9227081ea4c398fe32bbb2c6f0047f67b7bbf[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Mon Apr 19 03:07:25 2021 +0900
+
+    참가자 리스트 완료 - 참가자 기능 완성
+    개설자 인증 리스트 완료 - 개설자 기능 시작
+
+[33mcommit 98be015da36d3eb2859389e14106a0d52affb9e7[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Sun Apr 18 20:41:49 2021 +0900
+
+    참가자 인증 관리 완료
+
+[33mcommit 17f4600a2dc027b93524a877909c1847465059e6[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Sun Apr 18 03:23:30 2021 +0900
+
+    인증글 리스트, 등록 완료
+
+[33mcommit 087bf25d4002dbdfbc9b56c59ebbe94b93caaa58[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Sat Apr 17 15:44:49 2021 +0900
+
+    참가하기 결제 완료
+
+[33mcommit 8cbed6775013bd8f8f6acc15af4b176d807307f4[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Sat Apr 17 15:37:30 2021 +0900
+
+    Revert "참가하기 작성중"
+    
+    This reverts commit 29782d17d968ec8ed68ae98ec4062b8388009cc4.
+
+[33mcommit 29782d17d968ec8ed68ae98ec4062b8388009cc4[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Sat Apr 17 15:35:10 2021 +0900
+
+    참가하기 작성중
+
+[33mcommit 09280be1f2bbc203a6cdf5d3553a984e540c22d7[m
+Author: HwangJunha <tarot1415@gmail.com>
+Date:   Fri Apr 16 12:45:24 2021 +0900
+
+    로그인 u_no 세션의 추가
+
+[33mcommit 779b2114c0d52520cff0afc11a7964c5bfa9ec11[m
+Author: HwangJunha <tarot1415@gmail.com>
+Date:   Fri Apr 16 11:25:04 2021 +0900
+
+    관리자 및 사용자 챌린지 관리
+
+[33mcommit d6b5ed5d98f191b9295d0ccb167a19e7be165558[m
+Author: HwangJunHa <tarot1415@gmail.com>
+Date:   Fri Apr 16 02:14:37 2021 +0900
+
+    관리자 및 사용자 챌린지 관리

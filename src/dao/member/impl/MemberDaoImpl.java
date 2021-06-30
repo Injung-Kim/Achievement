@@ -127,7 +127,7 @@ public class MemberDaoImpl implements MemberDao {
 			    result.setBank(rs.getString("u_bank"));
 			    result.setPhone(rs.getString("u_phone"));
 			    result.setAddress(rs.getString("u_address"));
-			    result.setPost(rs.getInt("u_post"));
+			    result.setPost(rs.getString("u_post"));
 			    result.setAddress(rs.getString("u_address"));
 			    result.setCaution(rs.getInt("u_caution"));
 				

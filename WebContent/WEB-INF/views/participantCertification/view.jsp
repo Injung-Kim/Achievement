@@ -13,7 +13,6 @@ $(document).ready(function() {
 	//수정버튼 동작
 	
 	$("#btnUpdate").click(function() {
-		
 		$(location).attr("href", "/participant/certification/update?ceNo=<%=certification.getCeNo() %>");
 	});
 

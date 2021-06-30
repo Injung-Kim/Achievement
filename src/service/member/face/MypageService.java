@@ -17,10 +17,10 @@ public interface MypageService {
 	 * 세션에 저장된 유저아이디를 통해 유저정보를 가져오는 메소드
 	 * 
 	 * 
-	 * @param uId - 세션에 저장된 아이디
+	 * @param uNo - 세션에 저장된 아이디
 	 * @return
 	 */
-	public Member getUserInfo(String uId);
+	public Member getUserInfo(int uNo);
 
 	/**
 	 * 유저번호를 통해 유저정보를 가져오는 메소드
@@ -150,7 +150,7 @@ public interface MypageService {
 	public int paymentSum(List<Payment> paymentList);
 
 	/**
-	 * 이번달 상금을 구하는 메소드
+	 * 이번달 총상금을 구하는 메소드
 	 * 
 	 * 
 	 * @param refundsList
@@ -166,6 +166,15 @@ public interface MypageService {
 	 * @return
 	 */
 	public int paymentMonthSum(List<Payment> paymentList);
+	
+	
+	/**
+	 * 이번달 총환급을 구하는 메소드
+	 * 
+	 * @param reqPaybackList
+	 * @return
+	 */
+	public int paybackMonthSum(List<Payback> reqPaybackList);
 
 	/**
 	 * 년도 월을 입력받아 해당기간의 상금목록을 가져오는 코드
@@ -224,6 +233,7 @@ public interface MypageService {
 	 * @return
 	 */
 	public List<Payback> getReqPayback(List<Payback> paybackList);
+	
 
 //	/**
 //	 * 결제 리스트를 받아 해당 결제 챌린지 제목을 가져온다
@@ -232,6 +242,33 @@ public interface MypageService {
 //	 * @return
 //	 */
 //	public List<Challenge> getChallTitles(List<Payment> paymentList);
+
+	
+	/**
+	 * 요청한 기간의 상금목록을 받아 기간내의 총상금을 구한다.
+	 * 
+	 * 
+	 * @param refundsList
+	 * @return
+	 */
+	public int sumReqFunds(List<Refunds> refundsList);
+
+	/**
+	 * 요청한 기간의 결제목록을 받아 기간내의 총상금을 구한다.
+	 * 
+	 * @param reqPaymentPeriodList
+	 * @return
+	 */
+	public int sumReqPayment(List<Payment> reqPaymentPeriodList);
+
+	/**
+	 * 요청한 기간의 환급목록을 받아 기간내의 총상금을 구한다.
+	 * 
+	 * @param reqPaybackPeriodList
+	 * @return
+	 */
+	public int sumReqPayback(List<Payback> reqPaybackPeriodList);
+
 
 	
 

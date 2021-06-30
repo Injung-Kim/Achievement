@@ -71,7 +71,7 @@ td{
 	<tr><td colspan="2"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;<%=title %>인증수정</td></tr>
 	<tr><td colspan="2" id="date"></td></tr>
 	<tr><td colspan="2"><label for="file"><img id="preview" src="/upload/<%=certification.getCeStoredName() %>" width="400" height="300"/></label><input type="file" accept="image/*" id="file" name="file" style="width:100%; display: none;"/></td></tr>	
-	<tr><td colspan="2">인증 방법 <br><%=chWay %></td></tr>
+	<tr><td colspan="2">인증 방법(인증 사진을 올려주세요) <br><%=chWay %></td></tr>
 </table>
 </form>
 <div class="text-center">	

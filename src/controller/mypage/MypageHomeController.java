@@ -39,46 +39,44 @@ public class MypageHomeController extends HttpServlet {
 
 	@Override 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println(req.getSession().getMaxInactiveInterval());
+		
 		System.out.println("------ [MypageHomeController] Do Get ------");
 
 		HttpSession session = req.getSession(); // 세션 객체 생성
-		String uId = (String)session.getAttribute("u_id"); // 현재 로그인된 유저아이디를 가져온다.	
-
+		int uNo = (Integer)session.getAttribute("u_no"); // 현재 로그인된 유저아이디를 가져온다.	
+		
 		// 유저 정보를 가져오는 메소드
-		Member member = mypageService.getUserInfo(uId); 
-		session.setAttribute("memberInfo", member);
-
+		Member member = mypageService.getUserInfo(uNo); 
+		req.setAttribute("memberInfo", member);
+		
 		// 유저 정보(마이페이지)를 가져오는 메소드
 		Mypage mypage = mypageService.getMypageInfo(member.getUno());
-		session.setAttribute("mypageInfo", mypage);
+		req.setAttribute("mypageInfo", mypage);
 			
 		// 유저의 결제 정보를 가져오는 메소드
 		List<Payment> paymentList = new ArrayList<>();
 		paymentList = mypageService.getPaymentInfo(member.getUno());
-		session.setAttribute("paymentList", paymentList); //세션의 정보 저장
 
 		// 유저의 환급 정보를 가져오는 메소드(사용자취소, 첼린지 삭제시)
 		List<Payback> paybackList = new ArrayList<>();
 		paybackList = mypageService.getPaybackInfo(member.getUno());
-		session.setAttribute("paybackList", paybackList); //세션의 정보 저장
 
 		// 유저의 참여챌린지중 성공한 챌린지 정보를 가져오는 메소드
 		List<Participation> parList = new ArrayList<>();
 		parList = mypageService.getSuccessChallInfo(member.getUno());
-		session.setAttribute("parList", parList); //세션의 정보 저장
 
 		//유저가 환불받을 금액(상금)을 가져오는 메소드
 		List<Refunds> refundsList = new ArrayList<>();
 		refundsList = mypageService.getRefundAmount(parList);
-		session.setAttribute("refundsList", refundsList); //세션의 정보 저장
 
 		//누적 총상금을 구하는 메소드
 		int refundsTotal = mypageService.refundsSum(refundsList);
-		session.setAttribute("refundsTotal", refundsTotal); //세션의 정보 저장
+		req.setAttribute("refundsTotal", refundsTotal); //세션의 정보 저장
 
 		//누적 결재금액을 구하는 메소드		
 		int paymentTotal = mypageService.paymentSum(paymentList);
-		session.setAttribute("paymentTotal", paymentTotal); //세션의 정보 저장
+		req.setAttribute("paymentTotal", paymentTotal); //세션의 정보 저장
 
 		req.getRequestDispatcher("/WEB-INF/views/mypage/myHome.jsp")
 		.forward(req, resp);

@@ -5,10 +5,16 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/layout/session/sessionCheck.jsp" %>
 <%
-List<Refunds> reqRefundsPeriodList = (List<Refunds>)session.getAttribute("reqRefundsPeriodList"); // 선택된기간 누적상금액
-List<Payment> reqPaymentPeriodList = (List<Payment>)session.getAttribute("reqPaymentPeriodList"); // 선택된기간 누적결재액
-List<Payback> reqPaybackPeriodList = (List<Payback>)session.getAttribute("reqPaybackPeriodList"); // 선택된기간 누적환급액
+List<Refunds> reqRefundsPeriodList = (List<Refunds>)request.getAttribute("reqRefundsPeriodList"); // 선택된기간 누적상금액
+List<Payment> reqPaymentPeriodList = (List<Payment>)request.getAttribute("reqPaymentPeriodList"); // 선택된기간 누적결재액
+List<Payback> reqPaybackPeriodList = (List<Payback>)request.getAttribute("reqPaybackPeriodList"); // 선택된기간 누적환급액
+
+int reqRefundsTotal = (int)request.getAttribute("reqRefundsTotal"); // 선택된기간 상금합계
+int reqPaymentTotal = (int)request.getAttribute("reqPaymentTotal"); // 선택된기간 결제합계
+int reqPaybackTotal = (int)request.getAttribute("reqPaybackTotal"); // 선택된기간 환급합계
+
 %>	
 
 <script type="text/javascript">
@@ -53,7 +59,7 @@ $(document).ready(function(){
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4">타임라인</th>
+    <th colspan="4">타임라인</th>
   </tr>
   </thead>
   
@@ -84,7 +90,7 @@ $(document).ready(function(){
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4">타임라인</th>
+    <th colspan="4">타임라인</th>
   </tr>
   </thead>
   
@@ -115,7 +121,7 @@ $(document).ready(function(){
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="4">타임라인</th>
+    <th colspan="4">타임라인</th>
   </tr>
   </thead>
   
@@ -138,4 +144,27 @@ $(document).ready(function(){
   <% } %>
   </tbody>
 </table>
+</div>
+
+<!-- 하단 상금 관련 토탈 div 영역  -->
+<div style="height: 30px;"></div>
+<div id="totalTrade">
+
+<table class="type09">
+  <thead>
+  <tr>
+    <th colspan="4">타임라인 합계</th>
+  </tr>
+  </thead> 
+  <tbody> 
+ 	  <tr>   
+	  </tr> 
+	  <tr>			    
+	   <td><strong>상금 : <%=reqRefundsTotal %> (원)</strong></td>
+	   <td><strong>결제 : <%=reqPaymentTotal %> (원)</strong></td>
+	   <td><strong>환급 : <%=reqPaybackTotal %> (원)</strong></td>
+	  </tr>
+  </tbody>
+</table>
+
 </div>

@@ -1,5 +1,6 @@
 package service.user.challenge.face;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import dto.Challenge;
 import dto.Participation;
+import dto.Payback;
 import util.Paging;
 
 public interface UserChallengeService {
@@ -214,6 +216,69 @@ public interface UserChallengeService {
 	 * @param - req - 요청정보 객체(챌린지 내용+ 첨부파일)
 	 */
 	public void delete(HttpServletRequest req);
+	
+	/**
+	 * 챌린지 상태를 가져온다
+	 * @param challenge - 조회할 챌린지 번호
+	 * @return 챌린지 상태 가져오기
+	 */
+	public String getChState(Challenge challenge);
+	
+	
+	/**
+	 * 챌린지 번호와 유저 번호를 통한 환급자들 반환
+	 * @param 챌린지 번호을 통한 환급자들 반환
+	 * @return 환급자들 반환
+	 */
+	public List<Payback> getPaybList(Challenge challenge);
+	/**
+	 * 환급을 위한 토큰 발급 
+	 * @return 환불 토큰
+	 * @throws IOException 
+	 */
+	public String refundsToken() throws IOException;
+	
+	/**
+	 * 참여자들 최종 환급
+	 * @param paybList - 환급자 리스트
+	 * @param token - 환급 토큰
+	 * @throws IOException
+	 */
+	public void payback(List<Payback> paybList, String token) throws IOException;
+	/**
+	 * 환급 테이블에 저장
+	 * @param paybList - 환급 정보
+	 */
+	public void paybackInsert(List<Payback> paybList);
+	
+	/**
+	 * 리뷰 페이징
+	 * @param req - 전달 객체
+	 * @param challenge - challenge 번호
+	 * @return - 페이징
+	 */
+	public Paging getPagingReview(HttpServletRequest req, Challenge challenge);
+	
+	/**
+	 * 리뷰 리스트 가져오기
+	 * @param challenge - 챌린지 번호
+	 * @return 리뷰 리스트
+	 */
+	public List<Participation> getParticipationList(Challenge challenge, Paging paging);
+	
+	/**
+	 * 참가자 번호 가져오기
+	 * @param req - 요청 객체
+	 * @return 참가자 번호를 가진 객체 반환
+	 */
+	public Participation getPaNo(HttpServletRequest req);
+	
+	/**
+	 * 참가자 반환하기
+	 * @param participation - 참가자 번호
+	 * @return 조회한 참가자 가져오기
+	 */
+	public Participation getParticipation(Participation participation);
 }
 
 

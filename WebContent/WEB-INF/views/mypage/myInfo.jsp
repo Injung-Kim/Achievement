@@ -2,9 +2,11 @@
 <%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
+<%@ include file="/WEB-INF/views/layout/session/sessionCheck.jsp" %>    
+    
 <%
-	Member memberInfo =(Member) session.getAttribute("memberInfo");
-	Mypage mypageInfo =(Mypage) session.getAttribute("mypageInfo");
+	Member memberInfo =(Member) request.getAttribute("memberInfo");
+	Mypage mypageInfo =(Mypage) request.getAttribute("mypageInfo");
 %>
 <!-- 구글 차트 스크립트 코드  -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
@@ -137,33 +139,33 @@ table.type09 td {
 <table class="type09">
   <thead>
   <tr>
-    <th scope="cols" colspan="2"><%=memberInfo.getNick()%>님의 활동점수</th>
+    <th colspan="2"><%=memberInfo.getNick()%>님의 활동점수</th>
   </tr>
   </thead>
   <tbody>
   <tr>
     <th scope="row">누른좋아요</th>
-    <td><%=mypageInfo.getmLikes()%> 번</td>
+    <td><%=mypageInfo.getmLikes()%> (번)</td>
   </tr>
   <tr>
     <th scope="row">작성댓글</th>
-    <td><%=mypageInfo.getmComment()%> 개</td>
+    <td><%=mypageInfo.getmComment()%> (개)</td>
   </tr>
   <tr>
     <th scope="row">작성게시글</th>
-    <td><%=mypageInfo.getmPost()%></td>
+    <td><%=mypageInfo.getmPost()%> (개)</td>
   </tr>
   <tr>
     <th scope="row">누적달성챌린지</th>
-    <td><%=mypageInfo.getmAcchall()%></td>
+    <td><%=mypageInfo.getmAcchall()%> (개)</td>
   </tr>
   <tr>
     <th scope="row">현재포인트</th>
-    <td><%=mypageInfo.getmCpoint()%></td>
+    <td><%=mypageInfo.getmCpoint()%> (P)</td>
   </tr>
   <tr>
     <th scope="row">누적포인트</th>
-    <td><%=mypageInfo.getmApoint()%></td>
+    <td><%=mypageInfo.getmApoint()%> (P)</td>
   </tr>
   </tbody>
 </table>

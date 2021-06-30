@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+.container{
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content : space-between;
+	align-items: stretch;
+	width : 900px;
+	height : 500px;
+	/* border: 1px solid #ccc; */
+}
+.ajaxImage{
+	width : 75%;
+	padding : 15px;
+	/* border: 1px solid #ccc; */
+}
+.ajaxText{
+	width : 25%;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	/* border: 1px solid #ccc; */
+}
+.imgarr{
+	float:left;
+	width:200px;
+	margin: 0px 70px 20px 20px;
+	text-align:center;
+	/* border: 1px solid #ccc; */
+	height : 48%;
+}
+.imgarr > a{
+	/* 글자색상 */
+	color: #8C8C8C;
+	/* 글자 크기 크게*/
+	font-size : medium;
+	/* 글자 꾸밈선 없애기(underline) */
+	text-decoration: none;
+}
+.imgarr .status{
+	/* p태그 사이 간격 없애기*/
+	margin : 0;	
+}
+
+.imgarr > a > img:hover{
+	margin-top : -10px;
+}
+.ajaxImage .publisher {
+	color: #8C8C8C;
+	margin-right: 10px;
+}
+.textarr{
+	font-size: 20px;
+	width: 100%;
+	margin: 5px;
+	text-align: left;
+}
+
+.textarr > a{
+	/* 글자색상 */
+	color: #8C8C8C;
+	/* 글자 꾸밈선 없애기(underline) */
+	text-decoration: none;
+	/* 글자 스타일 지정 */
+}
+.textarr > a:hover{
+	/* 글자색상 */
+	color: #A8201A;
+}

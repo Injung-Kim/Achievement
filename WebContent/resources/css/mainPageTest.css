@@ -1,0 +1,345 @@
+@charset "UTF-8";
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+  font-family: "Noto Sans KR", sans-serif !important;
+}
+.left{
+	float:left;
+}
+.right{
+	float:right;
+}
+.center{
+	text-align:center;
+}
+
+/* 상당 로고 영역  */
+
+
+/* 로그인 /회원가입 / 링크 영역 css  */
+#loginDiv{
+	float:right;
+}
+
+
+
+.startBtn {
+  color: #8C8C8C;
+  background-color: #OF8B8D;
+  border: 1px solid #OF8B8D;
+  border-radius: 5px;
+  box-shadow: 0px 5px 0px #143642;
+  position: relative;
+  top: 0px;
+  transition: all ease 0.3s;
+}
+.startBtn:active {
+  box-shadow: 0 3px 0 #143642;
+  top: 3px;
+}
+.floating{
+ 	position: fixed;
+	right: 50%;
+	top : 300px;
+	margin-right: -590px;
+	text-align: center;
+	width: 120px;
+	
+}
+.floating > div{
+	border: 1px solid #OF8B8D;
+}
+.floating > div > a{
+	/* 글자색상 */
+	color: #FFFFFF;
+	/* 글자 꾸밈선 없애기(underline) */
+	text-decoration: none;
+	/* 글자 스타일 지정 */
+	margin: 0 5px;
+}
+
+.floating > div:hover > a{
+	/* 글자색상 */
+	color: #8C8C8C;
+	/* 글자 꾸밈선 없애기(underline) */
+	text-decoration: none;
+	/* 글자 스타일 지정 */
+	margin: 0 5px;
+}
+
+header{
+	/* header태그의 전체적인 설정 */
+	/* /*border: 1px solid #ccc;*/ */
+ 	background: #FFFFFF;
+ 	text-align: center;
+ 	width: 900px;
+ 	height: 50px;
+ 	margin: 0 auto;
+ 	padding: 15px;
+ 	
+}
+.hdropdown{
+	/* ul태그의 기본 리스트스타일 없애기 */
+	/* 기본 리스트스타일: disc */
+	list-style-type: none;
+	/* 기본 여백 제거 */
+	padding: 0px;
+	margin: 0px;
+	
+}
+.alldropdown{
+	height: 40px;
+	font-size: 20px;
+	line-height:40px;
+	transition: all 0.5s ease-out;
+}
+
+
+.hdropdown > li{
+	/* 수평으로 일렬 배치하기 */
+	float: left;
+	background: #FFFFFF;
+	/* 크기 (배경색 포함) 변경하기 */
+	/* padding: 20px 5px; */
+	/* 줄 간격을 이용한 높이 조절 */
+	line-height: 40px;
+	/* 테두리를 이용한 메뉴 항목 구분선 만들기 */
+	border-right: 1px solid #FFFFFF;
+	/* 서브메뉴(absolute)의 위치 기준점 설정 */
+	position: relative;
+}
+
+.hdropdown > li > a{
+	/* 글자색상 */
+	color: #000000;
+	/* 글자 꾸밈선 없애기(underline) */
+	text-decoration: none;
+	/* 글자 스타일 지정 */
+	font-size: 40px;
+	
+	margin: 0 5px;
+}
+
+.hdropdown > li > ul{
+	/* HTM 계층구조에서 빼내는 설정  */
+	/* 부모요소인 <li>태그의 컨텐츠 영역에서 벗어나게 된다 */
+	position: absolute;
+	/* ul태그 기본 리스파일 (disc) 제거 */
+	list-style-type: none;
+	/* ul태그 기본 여백 제거 */
+	padding: 0;
+	margin: 0;
+	
+	/* 서브메뉴의 위치 설정 */
+	left: 5px;
+	/* 서브메뉴영역의 너비 */
+	width: 150px;
+}
+.hdropdown > li:hover > ul > li{
+	height: 40px;
+	font-size: 20px;
+	line-height:40px;
+	transition: all 0.5s ease-out;
+}
+
+.hdropdown > li > ul > li{
+	/* 배경색 지정 */
+	background: #143642;
+	/* 항목의 크기 키우기 */
+	/* padding: 2px 5px;  */
+	/* 텍스트 들여쓰기 */
+	padding-left: 10px; 
+	
+	/* 평소에 화면에서 안보이도록 설정하기 */
+	height: 0;
+	font-size: 0;
+	overflow: hidden; 
+	line-height:0;
+}
+.hdropdown > li > ul > li > a{
+	/* 배경색 지정 */
+	background: #FFFFFF;
+	
+	/* 글자색 지정 */
+	color: #333;
+	
+	/* 꾸밈선 제거(underline) */
+	text-decoration: none;
+	/* 부모요소<li>항목을 자식요소 <a>로 가득 채우기 */
+	display: block; 
+	/* 변화 시작, 종료 둘 다 적용 */
+	/* transition: background 2s, color 1s; */
+}
+
+.hdropdown > li > ul > li > a:hover{
+	/* 글자색 변경 */
+	color: #8C8C8C;
+	/* 배경색 변경 */
+	background: #FFFFFF;
+
+
+}
+
+.ndropdown{
+	/* ul태그의 기본 리스트스타일 없애기 */
+	/* 기본 리스트스타일: disc */
+	list-style-type: none;
+	/* 기본 여백 제거 */
+	padding: 0px;
+	margin: 0px;
+	
+}
+
+.ndropdown > li{
+	/* 수평으로 일렬 배치하기 */
+	float: left;
+	background: #FFFFFF;
+	/* 크기 (배경색 포함) 변경하기 */
+	/* padding: 20px 5px; */
+	/* 줄 간격을 이용한 높이 조절 */
+	line-height: 40px;
+	/* 테두리를 이용한 메뉴 항목 구분선 만들기 */
+	border-right: 1px solid #FFFFFF;
+	/* 서브메뉴(absolute)의 위치 기준점 설정 */
+	position: relative;
+	padding: 0px 30px;
+}
+
+.ndropdown > li > a{
+	/* 글자색상 */
+	color: #000000;
+	/* 글자 꾸밈선 없애기(underline) */
+	text-decoration: none;
+	/* 글자 스타일 지정 */
+	font-size: 20px;
+	margin: 0 5px;
+}
+
+.ndropdown > li > ul{
+	/* HTM 계층구조에서 빼내는 설정  */
+	/* 부모요소인 <li>태그의 컨텐츠 영역에서 벗어나게 된다 */
+	position: absolute;
+	/* ul태그 기본 리스파일 (disc) 제거 */
+	list-style-type: none;
+	/* ul태그 기본 여백 제거 */
+	padding: 0 30px;
+	margin: 0;
+	
+	/* 서브메뉴의 위치 설정 */
+	left: 5px;
+	/* 서브메뉴영역의 너비 */
+	width: 120px;
+}
+
+
+.ndropdown > li:hover > ul > li{
+	height: 30px;
+	font-size: 16px;
+	line-height:30px; 
+	transition: all 0.5s ease-out;
+}
+
+.ndropdown > li > ul > li{
+	/* 배경색 지정 */
+	background: #143642;
+	/* 항목의 크기 키우기 */
+	/* padding: 2px 5px;  */
+	/* 텍스트 들여쓰기 */
+	padding-left: 10px; 
+	
+	/* 평소에 화면에서 안보이도록 설정하기 */
+	height: 0px;
+	font-size: 0px; 
+	line-height:0px;
+	/* transition: all 0.5s ease-out; */
+}
+.ndropdown > li > ul > li > a{
+	/* 배경색 지정 */
+	background: #FFFFFF;
+	
+	/* 글자색 지정 */
+	color: #333;
+	
+	/* 꾸밈선 제거(underline) */
+	text-decoration: none;
+	/* 부모요소<li>항목을 자식요소 <a>로 가득 채우기 */
+	display: block; 
+	/* 변화 시작, 종료 둘 다 적용 */
+	/* transition: background 2s, color 1s; */
+}
+
+.ndropdown > li > ul > li > a:hover{
+	/* 글자색 변경 */
+	color: #8C8C8C;
+	/* 배경색 변경 */
+	background: #FFFFFF;
+}
+
+
+nav{
+	/* nav태그의 전체적인 설정 */
+	/* border: 1px solid #abc; */
+ 	background: #FFFFFF;
+ 	text-align: center;
+ 	width: 900px;
+ 	height: 50px;
+ 	margin: 0 auto;
+ 	padding: 15px;
+ 	
+}
+#nbutton{
+	
+/* nbutton태그의 전체적인 설정 */
+	/*border: 1px solid #ccc;*/
+ 	background: #FFFFFF;
+ 	width: 900px;
+ 	margin: 10px auto;
+ 	padding: 15px;
+	text-align : center;
+}
+#nbutton > div > button{
+	color: #FFFFFF;
+	/*border: 1px solid #ccc;*/
+	font-size : 24px;
+	background: #5D5D5D;
+}
+
+
+#summery{
+	/*border: 1px solid #ccc;*/
+ 	background: #FFFFFF;
+ 	width: 900px;
+ 	height:700px;
+ 	margin: 10px auto;
+ 	padding: 15px;
+}
+#summery > div{
+	font-size: 20px;
+	text-align: center;
+}
+
+#resultAjax{
+	/*border: 1px solid #ccc;*/
+ 	background: #FFFFFF;
+ 	width: 900px;
+ 	height:500px;
+ 	margin: 10px auto;
+ 	padding: 15px;
+}
+
+#resultAjax > div{
+	width:400px;
+	/*border: 1px solid #ccc;*/
+ 	background: #FFFFFF;
+ 	padding: 15px;
+ 	text-align:center;
+}
+footer{
+	/* footer의 전체적인 설정 */
+	/*border: 1px solid #ccc;*/
+ 	background: #FFFFFF;
+ 	width: 900px;
+ 	margin: 0 auto;
+ 	padding: 15px;
+ 	
+}

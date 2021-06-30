@@ -38,10 +38,10 @@ public class MypageServiceImpl implements MypageService {
 	MypageDao mypageDao = new MypageDaoImpl();
 
 	@Override // [마이페이지] 유저정보를 가져오는 메소드
-	public Member getUserInfo(String uId) {
+	public Member getUserInfo(int uNo) {
 		Connection conn = JDBCTemplate.getConnection(); 
 		Member member = null; // 유저 객체 생성
-		member = mypageDao.selectInfo(conn, uId);
+		member = mypageDao.selectInfo(conn, uNo);
 
 		return member;
 	}
@@ -312,9 +312,17 @@ public class MypageServiceImpl implements MypageService {
 	public List<Challenge> getUserChallInfo(int uNo) {
 		Connection conn = JDBCTemplate.getConnection(); 
 		List<Challenge> list = new ArrayList<>();
-
+		Challenge chall = new Challenge();	
+		
 		list = mypageDao.selectAllUserChall(conn, uNo);
-
+		
+		if(list.size() == 0) { //현재 유저가 진행중인 챌린지가 없을 경우
+			list.add(chall); //기본값이 들어있는 객체를 넣어준다.
+		}
+		
+		System.out.println(list.size());
+		
+		
 		return list;
 	}
 
@@ -322,9 +330,15 @@ public class MypageServiceImpl implements MypageService {
 	public List<Payment> getPaymentInfo(int uNo) {
 		Connection conn = JDBCTemplate.getConnection(); 
 		List<Payment> list = new ArrayList<>();
-
+		Payment payment = new Payment();
+		
 		list = mypageDao.selectUserPayment(conn, uNo);
 
+		if(list.size() == 0) { //현재 유저가 결제가 하나도 없을 경우
+			list.add(payment); //기본값이 들어있는 객체를 넣어준다.
+		}
+		
+		
 		return list;
 	}
 
@@ -333,9 +347,14 @@ public class MypageServiceImpl implements MypageService {
 	public List<Payback> getPaybackInfo(int uNo) {
 		Connection conn = JDBCTemplate.getConnection(); 
 		List<Payback> list = new ArrayList<>();
-
+		Payback payback = new Payback();
+		
 		list = mypageDao.selectUserPayback(conn, uNo);
 
+		if(list.size() == 0) { //현재 유저가 환급이 하나도 없을 경우
+			list.add(payback); //기본값이 들어있는 객체를 넣어준다.
+		}
+		
 		return list;
 	}
 
@@ -343,9 +362,14 @@ public class MypageServiceImpl implements MypageService {
 	public List<Participation> getSuccessChallInfo(int uNo) {
 		Connection conn = JDBCTemplate.getConnection(); 
 		List<Participation> list = new ArrayList<>();
-
+		Participation par = new Participation();
+		
 		list = mypageDao.selectSuccessChall(conn, uNo);
 
+		if(list.size() == 0) { //현재 유저가 성공한 챌린지가 하나도 없을 경우
+			list.add(par); //기본값이 들어있는 객체를 넣어준다.
+		}
+		
 		return list;
 	}
 
@@ -358,6 +382,11 @@ public class MypageServiceImpl implements MypageService {
 			refunds = mypageDao.selectSuccesChallRefunds(conn, parList.get(i).getPaNo());
 			list.add(refunds);
 		}
+	
+		if(list.size() == 0) { //현재 유저의 상금이 하나도 없을 경우
+			list.add(refunds); //기본값이 들어있는 객체를 넣어준다.
+		}
+		
 		return list;
 	}
 
@@ -405,6 +434,19 @@ public class MypageServiceImpl implements MypageService {
 
 		return sum;
 	}
+	
+	@Override// 이번 달 누적 환급액을 구하는 메소드
+	public int paybackMonthSum(List<Payback> reqPaybackList) {
+		Connection conn = JDBCTemplate.getConnection(); 
+		int sum = 0;
+
+		for(int i =0; i < reqPaybackList.size(); i++) {
+			sum +=reqPaybackList.get(i).getPaybAmount();
+		}
+
+		return sum;
+	}
+	
 
 	@Override // 전달받은 년월에 따른 상금내역을 가져오는 메소드
 	public List<Refunds> getReqFunds(HttpServletRequest req, List<Refunds> refundsList) {
@@ -543,4 +585,31 @@ public class MypageServiceImpl implements MypageService {
 //	}
 	
 	
+	@Override // 요청한 기간의 상금목록을 받아 해당기간의 총상금을 구한다.
+	public int sumReqFunds(List<Refunds> refundsList) {
+		int sum = 0;
+		for(int i = 0; i < refundsList.size(); i++) {
+			sum += refundsList.get(i).getReAmount();
+		}
+		return sum;
+	}
+
+
+	@Override // 요청한 기간의 결제목록을 받아 해당기간의 총결제금을 구한다.
+	public int sumReqPayment(List<Payment> reqPaymentPeriodList) {
+		int sum = 0;
+		for(int i = 0; i < reqPaymentPeriodList.size(); i++) {
+			sum += reqPaymentPeriodList.get(i).getPaymAmount();
+		}
+		return sum;
+	}
+	
+	@Override // 요청한 기간의 결제목록을 받아 해당기간의 총환급금을 구한다.
+	public int sumReqPayback(List<Payback> reqPaybackPeriodList) {
+		int sum = 0;
+		for(int i = 0; i < reqPaybackPeriodList.size(); i++) {
+			sum += reqPaybackPeriodList.get(i).getPaybAmount();
+		}
+		return sum;
+	}
 }

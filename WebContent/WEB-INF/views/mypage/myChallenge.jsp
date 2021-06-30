@@ -1,11 +1,12 @@
+<%@page import="java.io.File"%>
 <%@page import="dto.Challenge"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ include file="/WEB-INF/views/layout/session/sessionCheck.jsp" %>
 <%
 	// 유저의 챌린지 정보를 가진 세션 객체
-	List<Challenge> list =(List)session.getAttribute("challList");
+	List<Challenge> list =(List)request.getAttribute("challList");
 %>
 
 
@@ -38,9 +39,30 @@
 	 
 	  slides[slideIndex-1].style.display = "block";  
 
-	}
+	}	
 	/*-------------------------------------------------  */
 </script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 슬라이더 링크 부여 로직 */
+	$(".slideText").click(function(){
+		console.log("slide click")
+		/* 챌린지랑 없을 때랑 있을떄 챌린지 링크 형식 */ 
+		 <% if(list.get(0).getChNo() == 0 && list.get(0).getChTitle()== null) {%>
+		 	$(location).attr("href", "/user/challenge/list")
+		 <% } else { %> 
+			var chNo = $(this).children("h4").text();
+			$(location).attr("href", "/user/challenge/view?chNo=" + chNo)
+		<% } %>	
+		 
+	})
+})
+</script>
+
+
+	
+	
 
 <!-- 구글 차트 로직  -->
 <script type="text/javascript">
@@ -50,13 +72,20 @@ function drawChart() {
   var data = google.visualization.arrayToDataTable([
     ["Element", "좋아요", { role: "style" } ],
     
-    <%for(int i = 0; i < list.size(); i++) {%>
+   /* 챌린지랑 없을 때랑 있을떄 그래프를 나타내는 형식 */ 
+    <% if(list.get(0).getChNo() == 0 && list.get(0).getChTitle()== null) {%>
+    	["챌린지없음",  0, "#A8201A"]
+    <% } else { %>
+	    <%for(int i = 0; i < list.size(); i++) {%>
 			<% if(i % 2 == 0){ %>
-			["<%=list.get(i).getChTitle() %>", <%=list.get(i).getChLikes() %>, "#A8201A"],	
+				["<%=list.get(i).getChTitle() %>", <%=list.get(i).getChLikes() %>, "#A8201A"],	
 			 <% } else { %> 
-			["<%=list.get(i).getChTitle() %>", <%=list.get(i).getChLikes() %>, "#EC9A29"],
+				["<%=list.get(i).getChTitle() %>", <%=list.get(i).getChLikes() %>, "#EC9A29"],
 			<% } %>	
+		<% } %>
     <% } %>
+        
+    
     ]);
 
   var view = new google.visualization.DataView(data);
@@ -137,6 +166,12 @@ function drawChart() {
   background-color: #143642;
   width: 96.3%;
   text-align: center;
+  cursor: pointer; /* 링크로 사용될거기 때문 */
+}
+
+.text:hover{
+	background-color: #EC9A29;
+	transition: background-color 1.5s; 
 }
 
 /* Fading animation */
@@ -159,28 +194,48 @@ function drawChart() {
 /* ------------------------   */	
 </style>
 
-
 <!-- 슬라이드 부분  html  -->
 <h2>개인목표</h2>	
 <div id="challDiv">
 <div class="slideshow-container">
 <%for(int i = 0; i < list.size(); i++) {%>
 <div class="mySlides fade">
-    <img src="/resources/img/logoRed.png" style="width:100%">
-    <div class="text">
-    	<h3><%=list.get(i).getChTitle() %></h3>
+
+	<!--슬라이드 이미지 처리 -->
+	
+<!-- 현재 파일 존재여부 체크 위해 파일 객체 생성  -->
+	<% File challImg = new File(request.getServletContext().getRealPath("upload") + "\\" + list.get(i).getChStoredName()); %>
+	
+	<% if(list.get(i).getChStoredName() != null && challImg.exists()) {%>
+	<img src="/upload/<%=list.get(i).getChStoredName() %>" style="width:100%">
+	<% } else {%>
+	<img src="/resources/img/logoRed.png" style="width:100%">
+	<% } %>
+    
+    <div class="text slideText">
+    	<% if(list.get(0).getChNo() == 0 && list.get(0).getChTitle()== null) {%>
+    		
+    		<h4 style="display: none;"><%=list.get(i).getChNo() %></h4>
+    		<h3>챌린지 없음</h3>
+    		<p>진행중인 챌린지가 없습니다.</p>
     	
-    	<%-- 출력내용의 문자열 길이에 따른 다른 출력 --%>
-    	<% String content = list.get(i).getChContent();%>
-    	<% int contentLen = content.length(); %>
+    	<% } else { %> <!-- 존재하는 챌린지일 경우  -->
+	    	
+	    	<h4 style="display: none;"><%=list.get(i).getChNo() %></h4>
+    		<h3><%=list.get(i).getChTitle() %></h3>
     	
-    	<%if(contentLen > 15){ %>
-    		<p><%= content.substring(0, 12) %> ...</p>
-    	<% } else { %>
-    		<p><%= content.substring(0, contentLen) %></p>
+	    	<%-- 출력내용의 문자열 길이에 따른 다른 출력 --%>	
+	    	<% String content = list.get(i).getChContent();%>
+	    	<% int contentLen = content.length(); %>
+	    	
+	    	<%if(contentLen > 15){ %>
+	    		<p><%= content.substring(0, 12) %> ...</p>
+	    	<% } else { %>
+	    		<p><%= content.substring(0, contentLen) %></p>
+	    	<% } %>
+    		챌린지일정: <%=list.get(i).getChStartDate() %> ~ <%=list.get(i).getChEndDate() %>	
     	<% } %>
     	<%---------------------------------------------- --%>
-    	챌린지일정: <%=list.get(i).getChStartDate() %> ~ <%=list.get(i).getChEndDate() %>
     </div>
   </div>
 <% } %>

@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    
+<%@ include file="/WEB-INF/views/layout/bootHeader.jsp" %><br>  
+
+
+<%@ include file="/WEB-INF/views/layout/bootNavigation.jsp" %><br><br> 
+ 
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 부가적인 테마 -->

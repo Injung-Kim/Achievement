@@ -25,7 +25,7 @@ $(document).ready(function() {
 	//리스트
 	$('#challenge').css({"background":"#EC9A29"})
 	$("#btnList").click(function(){
-		$(location).attr("href","/user/challenge/view?chNo=<%=(Integer)session.getAttribute("chNo")%>");
+		$(location).attr("href","/admin/challenge/view?chNo=<%=(Integer)session.getAttribute("chNo")%>");
 		
 	})
 })
@@ -64,8 +64,9 @@ $(document).ready(function() {
 </tr>
 <%	} %>
 </table>
-<div class="text-left">	
-	<button type="button" id="btnList" class="btn btn-info">돌아가기</button>
+<div>	
+	<button type="button" id="btnEnd" class="btn btn-info" style="float:left;">챌린지 종료</button>
+	<button type="button" id="btnList" class="btn btn-info" style="float:right;">돌아가기</button>
 </div>
 
 </div>

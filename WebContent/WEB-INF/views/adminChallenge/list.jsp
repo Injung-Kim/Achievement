@@ -4,25 +4,33 @@
     pageEncoding="UTF-8"%>
 <% List<Challenge> list = (List)request.getAttribute("challengeList"); %>
 
-<!-- 합쳐지고 최소화된 최신 CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <%@ include file="/WEB-INF/views/layout/bootAdminHeader.jsp" %>
 <%@ include file="/WEB-INF/views/layout/bootAdminNavigation.jsp" %>
 <style type="text/css">
-.tableHeader{
-	/* header정의 코드 */
- 	text-align: center;
- 	width: 900px;
- 	margin: 0 auto;
- 	padding: 15px;
 
+.container{
+width:900px;
 }
+
+
+th{
+background-color: #A8201A;
+}
+
+#move:hover tbody tr:hover td{
+background:#143642;
+color:#FFFFFF;
+}
+
 #btnTitle{
-	font-size:19px;
+background-color: #143642;
+color: white;
+border-radius: 4px;
+}
+
+.right{
+
+margin:0px 3px 5px 3px;
 }
 
 </style>
@@ -36,26 +44,28 @@ $( document ).ready( function() {
 <div class="container">
 <div id="tableHeader">
 	<div class="left" style="font-size:30px; font-weight:bold;">챌린지 목록 <a href="/admin/challenge/write"><i class="fas fa-plus"></i></a></div>
-	<div><span>&nbsp</span></div>	
+	<div><span>&nbsp</span></div>
+		
+	
 	<form action="/admin/challenge/list" method="get">
 	<div class="right">제목:&nbsp;<input type="text" id="title" name="title" />
-			<button id="btnTitle"><i class="fas fa-search"></i></button>
+			<button id="btnTitle">검색</button>
 			
 	</div>
 	</form>
 	<div><span>&nbsp</span></div>
-	<div><hr></div>
+
 </div>
 
 
-<table class="table table-striped table-hover table-condensed text-center">
+<table class="table table-striped table-hover table-condensed" id="move">
 <tr>
-	<th style="width: 10%; text-align:center;">챌린지번호</th>
-	<th style="width: 45%; text-align:center;">제목</th>
-	<th style="width: 20%; text-align:center;">시작날짜</th>
-	<th style="width: 10%; text-align:center;">끝나는 날짜</th>
-	<th style="width: 10%; text-align:center;">참가비</th>
-	<th style="width: 5%; text-align:center;">좋아요</th>
+	<th>챌린지번호</th>
+	<th>제목</th>
+	<th>시작날짜</th>
+	<th>끝나는 날짜</th>
+	<th>참가비</th>
+	<th>좋아요</th>
 </tr>
 <%	for(int i=0; i<list.size(); i++) { %>
 <tr>

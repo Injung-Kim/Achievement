@@ -29,27 +29,29 @@ public class FounderCertificationList extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int chNo = founderService.getChallengeno(req);
+		Map<String, Integer> uNo = founderService.getuId(chNo);
+		HttpSession session = req.getSession();
 		
-		//로그인이 되어있지 않으면 리다이렉트
-		if(req.getSession().getAttribute("login")==null) {
-			resp.sendRedirect("/");
-			return;
+		
+		//매니저 혹은 번호가 같지 않을때 
+		if(!(uNo.get("uNo")==(Integer)session.getAttribute("u_no") || "M".equals(String.valueOf(session.getAttribute("u_grade"))))) { //번호가 같지 않을떄(개설자가 아닐때)
+			String text = "개설자 혹인 매니저만 가능합니다.";
+			req.setAttribute("text", text);		
+			req.getRequestDispatcher("/WEB-INF/views/userChallenge/error.jsp")
+						.forward(req, resp);
+					return;
 		}
 		
 		Paging paging = null;
 		paging = founderService.getPaging(req);
 		//chNo 가져오기
-		int chNo = founderService.getChallengeno(req);
 		Map<String, Object> map = founderService.getMap(paging,chNo);
 		
 		
 		//객체 저장
 		req.setAttribute("result", map);
 		req.setAttribute("paging", paging);
-		
-		
-		HttpSession session = req.getSession();
-		
 		
 		if(session.getAttribute("u_grade")!=null) {
 			if("M".equals(String.valueOf(session.getAttribute("u_grade")))) {

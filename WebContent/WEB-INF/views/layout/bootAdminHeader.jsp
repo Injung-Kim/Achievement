@@ -33,19 +33,13 @@
 			<ul>
 				<li><a href="/member/login">로그인</a></li>
 			</ul>
-			<%}else if((boolean)session.getAttribute("login")&& "M".equals((String)session.getAttribute("u_grade"))) {%>
+			<%}else if((boolean)session.getAttribute("login")) {%>
 				<ul>
 					<li><a href="/member/logout">로그아웃</a></li>
 				</ul>
 			<%} %>
 		</li>
 	</ul>
-	</div>
-	<div class="center" style="padding: 30px 20px;">
-		<form action="#" method="get">
-			<input type="text" id="search" name="search" />
-				<button class="startBtn"><i class="fas fa-search"></i></button>
-		</form>
 	</div>
 	
 </header>

@@ -194,6 +194,12 @@ header{
 	/* 서브메뉴(absolute)의 위치 기준점 설정 */
 	position: relative;
 	padding: 0px 40px;
+<<<<<<< HEAD
+	
+	z-index:1;
+=======
+
+>>>>>>> upstream/master
 }
 
 .ndropdown > li > a{
@@ -220,6 +226,8 @@ header{
 	left: 5px;
 	/* 서브메뉴영역의 너비 */
 	width: 120px;
+	/* 서브메뉴 우선순위 */
+	z-index: 1;
 }
 
 

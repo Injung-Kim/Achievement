@@ -6,6 +6,7 @@ import java.util.Map;
 
 import dto.Challenge;
 import dto.Participation;
+import dto.Payback;
 import util.Paging;
 
 public interface UserChallengeDao {
@@ -196,5 +197,66 @@ public interface UserChallengeDao {
 	 *@return int - (삭제 성공했을때 1이 반환되고 실패했을시 0이 반환된다) 
 	 */
 	public int delete(Connection conn, Challenge challenge);
+	
+	/**
+	 * 챌린지 상태 검색
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param challenge - chNo
+	 * @return 챌린지 상태
+	 */
+	
+	public String selectChState(Connection conn, Challenge challenge);
+	
+	/**
+	 * 환급자들 반환
+	 * 
+	 * @param conn - DB연결 객체
+	 * @param challenge - chNo
+	 * @return 환급자들 반환
+	 */
+	
+	public List<Payback> selectAllPayback(Connection conn, Challenge challenge);
+	/**
+	 * 환급자들 다음 번호
+	 * @param conn - DB연결 객체
+	 * @return 환급자 다음 번호
+	 */
+	public int selectPaybNo(Connection conn);
+	
+	/**
+	 * 환급자들 삽입
+	 * @param conn - DB연결 객체
+	 * @param payback - 환급 정보
+	 * @return - 1이상이면 데이터 삽입 완료 0
+	 */
+	public int paybInsert(Connection conn, Payback payback);
+	/**
+	 * 전체 페이징 구하기
+	 * @param conn - DB연결 객체
+	 * @param challenge - 챌린지 번호
+	 * @return 전체 개수
+	 */
+	public int selectReviewCntAll(Connection conn, Challenge challenge);
+	
+	/**
+	 * 전체 리스트 구하기
+	 * @param conn - DB연결 객체
+	 * @param paging - 페이징
+	 * @param challenge- 챌린지 번호
+	 * @return 참가자
+	 */
+	public List<Participation> selectParticipationAll(Connection conn, Paging paging, Challenge challenge);
+	
+	/**
+	 * 참가자 구해오기
+	 * @param conn DB연결 객체
+	 * @param participation - 참가자 번호를 가진 객체
+	 * @return 참가자 반환
+	 */
+	public Participation selectParticipationReview(Connection conn, Participation participation);
+	
+	
+	
 	
 }

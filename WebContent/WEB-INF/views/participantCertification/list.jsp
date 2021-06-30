@@ -6,6 +6,9 @@
 <% List<Certification> list = (List)request.getAttribute("certificationList"); %>
 <% String title = (String)request.getAttribute("title"); %>
 <% Map<String, Boolean> whethers = (Map<String, Boolean>)request.getAttribute("whethers"); %>
+<% int cerCount = (Integer)request.getAttribute("cerCount"); //현재 구간 내가 인증한 횟수  %>
+<% int cecCount = (Integer)request.getAttribute("cecCount"); //현재 구간 총 인증 횟수 %>
+
 <%@ include file="/WEB-INF/views/layout/bootHeader.jsp" %>
 <%@ include file="/WEB-INF/views/layout/bootNavigation.jsp" %>
 <style type="text/css">
@@ -89,9 +92,12 @@ $(document).ready(function () {
     	});
     });
     $("#btnComplaint").click(function(){
-    	console.log("check")
+    	$(location).attr("href", "/participant/complaint/write");
     })
-    
+   	$("#btnReview").click(function(){
+   	 	$(location).attr("href", "/participant/review/write");  		
+   	})
+   
 }); 
 
 function startDate() { 
@@ -114,7 +120,14 @@ function startDate() {
 </script>
 <div class="container">
 <div id="tableHeader">
-	<div class="left" style="font-size:30px; font-weight:bold;">인증글 목록 <a href="/participant/certification/write"><i class="fas fa-plus"></i></a></div>
+	<div class="left" style="font-size:30px; font-weight:bold;">인증글 목록 
+	<%--현재 구간이 총 구간 보다 클때  --%>
+	<%if(cecCount - cerCount<=0){ %>
+		<i class="fas fa-plus"></i>
+	<%}else{ %>
+		<a href="/participant/certification/write"><i class="fas fa-plus"></i></a>
+	<%} %>
+	</div>
 	<div><span>&nbsp</span></div>
 	<div><span>&nbsp</span></div>
 	<div><hr></div>
@@ -123,6 +136,7 @@ function startDate() {
 
 	<div>
 		<div id=chTitle class="text-center"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;<%=title %>인증</div>
+		<div class="h6 left">현재 주기에 남은 인증 횟수는 <%=cecCount - cerCount%>번입니다.</div>
 		<div id="date" class="h6 right"></div>
 	</div>
 	

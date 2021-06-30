@@ -27,10 +27,17 @@ public class MypageEmailOverlapController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("------ [MypageEmailOverlapController] Do Get ------");
-		HttpSession session = req.getSession(); // 세션 객체 생성
 		
-		// 세션에서 유저정보를 가져온다
-		Member member = (Member)session.getAttribute("memberInfo");
+		HttpSession session = req.getSession(); // 세션 객체 생성
+		int uNo = (Integer)session.getAttribute("u_no"); // 현재 로그인된 유저아이디를 가져온다.	
+		
+		// 유저 정보를 가져오는 메소드
+		member = mypageService.getUserInfo(uNo); 
+		req.setAttribute("memberInfo", member);
+		
+		// 유저 정보(마이페이지)를 가져오는 메소드
+		mypage = mypageService.getMypageInfo(member.getUno());
+		req.setAttribute("mypageInfo", mypage);
 		
 		System.out.println(req.getParameter("email"));
 		

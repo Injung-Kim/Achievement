@@ -19,10 +19,10 @@ public interface MypageDao {
 	 * 유저 아이디를 전달받아 유저의 정보를 db에서 가져오는 메소드
 	 * 
 	 * @param conn
-	 * @param uId - 유저아이디
+	 * @param uNo - 유저아이디
 	 * @return
 	 */
-	public Member selectInfo(Connection conn, String uId);
+	public Member selectInfo(Connection conn, int uNo);
 
 	/**
 	 * 유저 번호를 전달받아 마이페이지 정보를 db에서 가져오는 메소드

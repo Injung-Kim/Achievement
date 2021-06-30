@@ -61,7 +61,7 @@ public class JDBCTemplate {
 	//Statement 객체 닫기
 	public static void close(Statement st) {
 			try {
-				if( st!=null && st.isClosed()) st.close();
+				if( st!=null && !st.isClosed()) st.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -71,7 +71,7 @@ public class JDBCTemplate {
 	//PreparedStatement 객체 닫기
 	public static void close(PreparedStatement ps) {
 		try {
-			if( ps!=null && ps.isClosed()) ps.close();
+			if( ps!=null && !ps.isClosed()) ps.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class JDBCTemplate {
 	//ResultSet 객체 닫기
 	public static void close(ResultSet rs) {
 		try {
-			if( rs!=null && rs.isClosed()) rs.close();
+			if( rs!=null && !rs.isClosed()) rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

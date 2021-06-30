@@ -29,10 +29,12 @@ public class ParticipantLikeController extends HttpServlet {
 			resp.sendRedirect("/");
 			return;
 		}
+		
 		//좋아요 수와 챌린지 번호 반환
 		Participation participation = participantService.getLike(req);		
 		int paNo=participantService.getParticipationno(req);
-		participation.setPaNo(paNo);
+		participation.setPaNo(paNo); //paNo 저장 
+		participation.setuNo((Integer)req.getSession().getAttribute("u_no")); // uNo저장
 		
 		
 		//좋아요 여부 변경
@@ -40,6 +42,10 @@ public class ParticipantLikeController extends HttpServlet {
 		
 		//좋아요 증감
 		participantService.increaseLike(participation);
+		
+		//좋아요 증감(마이페이지)
+		participantService.increaseLikeMypage(participation);
+		
 		
 		//좋아요 등록 여부와 신고 등록 여부를 가져온다
 		Map<String, Boolean> whethers = participantService.getWhethers(req);

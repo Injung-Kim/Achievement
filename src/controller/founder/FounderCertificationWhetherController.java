@@ -33,9 +33,13 @@ public class FounderCertificationWhetherController extends HttpServlet {
 		Map<String, Integer> uNo = founderService.getuId(chNo);
 		HttpSession session = req.getSession();
 		
-		//매니저 혹은 번호가 같지 않을때 main으로 redirect
+		
+		//매니저 혹은 번호가 같지 않을때 
 		if(!(uNo.get("uNo")==(Integer)session.getAttribute("u_no") || "M".equals(String.valueOf(session.getAttribute("u_grade"))))) { //번호가 같지 않을떄(개설자가 아닐때)
-			resp.sendRedirect("/");
+			String text = "개설자 혹인 매니저만 가능합니다.";
+			req.setAttribute("text", text);		
+			req.getRequestDispatcher("/WEB-INF/views/userChallenge/error.jsp")
+						.forward(req, resp);
 			return;
 		}
 		Certification certification = founderService.getCertificationno(req);

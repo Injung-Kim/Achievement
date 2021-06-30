@@ -209,7 +209,8 @@ public class AdminChallengeDaoImpl implements AdminChallengeDao {
 		sql	+= " ch_likes,";
 		sql	+= " ch_origin_name,";
 		sql	+= " ch_stored_name, ";
-		sql += " ch_create_date";
+		sql += " ch_create_date,";
+		sql += " ch_state";
 		sql	+= " from challenge";
 		sql += " WHERE ch_no = ?";
 
@@ -244,6 +245,7 @@ public class AdminChallengeDaoImpl implements AdminChallengeDao {
 				result.setChOriginName(rs.getString("ch_origin_name"));
 				result.setChStoredName(rs.getString("ch_stored_name"));
 				result.setChCreateDate(rs.getDate("ch_create_date"));
+				result.setChState(rs.getString("ch_state"));
 			}
 
 		} catch (SQLException e) {

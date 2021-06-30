@@ -32,9 +32,6 @@ public class ParticipantAttendController extends HttpServlet {
 		challenge = userChallengeService.view(challenge);
 		member = memberService.infoAll(req);
 		
-		
-		
-		
 		req.setAttribute("member", member);
 		req.setAttribute("challenge", challenge);
 		

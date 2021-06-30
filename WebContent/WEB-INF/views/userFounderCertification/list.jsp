@@ -26,8 +26,15 @@ $(document).ready(function() {
 		$(location).attr("href","/user/challenge/view?chNo=<%=(Integer)session.getAttribute("chNo")%>");
 		
 	})
+	$("#btnEnd").click(function(){
+		if(confirm("정말로 챌린지를 종료하시겠습니까?")){
+			$(location).attr("href","/founder/challenge/end");
+		}	
+	})
+	
 })
 </script>
+
 
 <div class="container">
 <div>
@@ -62,8 +69,9 @@ $(document).ready(function() {
 </tr>
 <%	} %>
 </table>
-<div class="text-left">	
-	<button type="button" id="btnList" class="btn btn-info">돌아가기</button>
+<div>	
+	<button type="button" id="btnEnd" class="btn btn-info" style="float:left;">챌린지 종료</button>
+	<button type="button" id="btnList" class="btn btn-info" style="float:right;">돌아가기</button>
 </div>
 
 </div>

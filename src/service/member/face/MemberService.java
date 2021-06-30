@@ -41,6 +41,8 @@ public interface MemberService {
 	 */
 	
 	public Member infoAll(HttpServletRequest req);
+
+	
 	
 	
 }

@@ -1,11 +1,17 @@
 package service.user.challenge.impl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,13 +27,16 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.JSONObject;
 
 import common.JDBCTemplate;
 import dao.user.face.UserChallengeDao;
 import dao.user.impl.UserChallengeDaoImpl;
 import dto.Challenge;
 import dto.Participation;
+import dto.Payback;
 import service.user.challenge.face.UserChallengeService;
+import util.BankCode;
 import util.FileRemove;
 import util.Paging;
 
@@ -385,9 +394,9 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 			String rename = sdf.format(new Date());
 			
 			File uploadFolder = new File(req.getServletContext().getRealPath("upload")); // 업로드될 폴더 경로
-			File defaultImg = new File(req.getServletContext().getRealPath("resources/img/challenge.png")); //이미지 파일 경로
+			File defaultImg = new File(req.getServletContext().getRealPath("resources/img/AchievementWhite.png")); //이미지 파일 경로
 			
-			String origin = defaultImg.getName(); //파일의 본래 이름 challenge.png
+			String origin = defaultImg.getName(); //파일의 본래 이름 AchievementWhite.png
 			int dotIdx = origin.lastIndexOf("."); //가장 마지막 "."의 인덱스
 			String ext = origin.substring(dotIdx + 1); //확장자
 			String stored = rename +"."+ext; //저장 파일
@@ -447,7 +456,7 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 		
 		//챌린지 정보가 있을 경우
 		if(challenge != null) {
-			//게시글 삽입
+			//챌린지 삽입
 			if( userChallengeDao.insert(conn, challenge) > 0 ) {
 				JDBCTemplate.commit(conn);
 			} else {
@@ -711,4 +720,213 @@ public class UserChallengeServiceImpl implements UserChallengeService {
 			JDBCTemplate.rollback(JDBCTemplate.getConnection());
 		}
 	}
+	@Override
+	public String getChState(Challenge challenge) {
+		//챌린지 상태 반환
+		return userChallengeDao.selectChState(JDBCTemplate.getConnection(), challenge);
+	}
+	
+	@Override
+	public List<Payback> getPaybList(Challenge challenge) {
+		
+		// 환급자들 반환
+		List<Payback> paybList = userChallengeDao.selectAllPayback(JDBCTemplate.getConnection(), challenge);
+		//환급자들 번호 삽입
+		for(Payback payback : paybList) {
+			BankCode bankCode = new BankCode(payback.getPaybRefundBank()); //은행 코드
+			payback.setPaybRefundBank(bankCode.getCode()); //kg 이니시스 은행 코드로 변환
+			int paybNo = userChallengeDao.selectPaybNo(JDBCTemplate.getConnection());
+			payback.setPaybNo(paybNo);
+		}
+		//환급자들 반환
+		return paybList;
+	}
+	@Override
+	public String refundsToken() throws IOException {
+		HttpURLConnection conn=null;
+		URL url = new URL("https://api.iamport.kr/users/getToken"); //엑세스할 토큰을 받아올 주소 입력
+		conn = (HttpURLConnection)url.openConnection();
+		
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		
+		//Data설정
+		conn.setDoOutput(true); //OutputStream으로 POST 데이터를 넘겨주겠다는 옵션
+		JSONObject obj = new JSONObject();
+		obj.put("imp_key", "9081765440266501"); 
+		obj.put("imp_secret","DdLtVjTUlJ47lCyLGOsnmwycGAlfngk0u6uqpnkK7oSs0qeHfG5BdDNTd99BqtBVA6m0tGLB5D364hOj"); 
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		bw.write(obj.toString());
+		bw.flush();
+		bw.close();
+		
+		int responseCode = conn.getResponseCode(); //응답코드 받기
+		System.out.println("응답코드 : "+responseCode);
+		StringBuilder sb=null;
+		
+		if(responseCode==200) {//성공
+			//System.out.println("토큰 발급 성공!!");
+			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			
+			sb = new StringBuilder();
+			String line = null;
+			while((line=br.readLine())!=null) {
+				sb.append(line+"\n");
+			}
+			br.close();
+			System.out.println(""+sb.toString());
+			
+		}else {
+			System.out.println(conn.getResponseMessage());
+		}
+		String  token= sb.toString(); //발급된 통근 반환
+		return token;
+	}
+	@Override
+	public void payback(List<Payback> paybList, String token) throws IOException {
+		//최종 환급
+		int responseCode; //응답 코드
+		for(Payback payback : paybList) {
+			URL url = new URL("https://api.iamport.kr/payments/cancel"); //환불 주소
+			HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+			JSONObject jobj = new JSONObject(token);
+			
+			//응답 객체
+			JSONObject post1Object = jobj.getJSONObject("response");
+			
+			String access_token = post1Object.getString("access_token");
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/json"); //header 설정
+			conn.setRequestProperty("Authorization", access_token); //header 설정
+			conn.setRequestProperty("Accept", "application/json");
+			//Data설정
+			conn.setDoOutput(true); //OutputStream으로 POST 데이터를 넘겨주겠다는 옵션
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			JSONObject obj = new JSONObject(); //JSON 객체
+			StringBuilder sb = new StringBuilder();
+			
+			int now = post1Object.getInt("now");
+			int expired_at  = post1Object.getInt("expired_at");
+		
+			
+			System.out.println("token(response): " + access_token);
+		    System.out.println("now(response): " + now);
+		    System.out.println("expired_at(response): " + expired_at);
+			
+			
+			obj = new JSONObject();
+			
+			
+			obj.put("imp_uid", payback.getImpUid());
+			obj.put("amount", payback.getPaybAmount());
+			obj.put("checksum",payback.getPaybChecksum());
+			obj.put("reason",payback.getPaybReason());
+			obj.put("refund_holder",payback.getPaybRefundHolder());
+			obj.put("refund_bank",payback.getPaybRefundBank());
+			obj.put("refund_account",payback.getPaybReFundAccount());
+			
+//			System.out.println("impUid:"+reMap.get(key).getImpUid());
+//			System.out.println("amount:"+reMap.get(key).getReAmount());
+//			System.out.println("checksum:"+reMap.get(key).getPaybChecksum());
+//			System.out.println("reason:"+reMap.get(key).getPaybReason());
+//			System.out.println("refund_holder:"+reMap.get(key).getPaybRefundHolder());
+//			System.out.println("refund_bank:"+reMap.get(key).getPaybRefundBank());
+//			System.out.println("refund_account:"+reMap.get(key).getPaybRefundAccount());
+			
+			
+			bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+			bw.write(obj.toString());
+			bw.flush();
+			bw.close();
+		    
+			
+			responseCode = conn.getResponseCode(); //응답코드 받기
+			
+			System.out.println("응답코드 : "+responseCode);
+			sb=null;
+			
+			if(responseCode==200) {//성공
+				System.out.println("환불성공!!");
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				
+				sb = new StringBuilder();
+				String line = null;
+				while((line=br.readLine())!=null) {
+					sb.append(line+"\n");
+				}
+				br.close();
+				System.out.println(""+sb.toString());
+				JSONObject messageObj = new JSONObject(sb.toString());
+				//메시지가 있을때 출력
+				
+				if(!messageObj.isNull("message")) { //null인지 확인
+					String message = messageObj.getString("message");
+					System.out.println("message:"+message);
+				}
+				
+			}else {
+				System.out.println(conn.getResponseMessage());
+			}
+		
+		}
+	}
+	@Override
+	public void paybackInsert(List<Payback> paybList) {
+		Connection conn = JDBCTemplate.getConnection();
+		for(Payback payback : paybList) {
+			if( userChallengeDao.paybInsert(conn, payback) > 0 ) {
+				JDBCTemplate.commit(conn);
+			} else {
+				JDBCTemplate.rollback(conn);
+			}
+		
+		}
+		
+	}
+	@Override
+	public Paging getPagingReview(HttpServletRequest req, Challenge challenge) {
+		//전달파라미터 curPage 파싱
+		String param = req.getParameter("curPage");
+		int curPage = 0;
+		if(param != null && !"".equals(param)) {
+			curPage = Integer.parseInt(param);
+		}
+
+		//challenge 테이블의 총 챌린지 수를 조회한다
+		int totalCount = userChallengeDao.selectReviewCntAll(JDBCTemplate.getConnection(), challenge);
+
+
+		Paging paging = new Paging(totalCount, curPage);
+
+		return paging;
+		
+	}
+	@Override
+	public List<Participation> getParticipationList(Challenge challenge, Paging paging) {
+		//리뷰 전체 리스트 
+		return userChallengeDao.selectParticipationAll(JDBCTemplate.getConnection(), paging, challenge);
+	}
+	@Override
+	public Participation getPaNo(HttpServletRequest req) {
+		//chNo를 저장할 객체 생성
+		Participation paNo = new Participation();
+
+		//chNo 전달파라미터 검증 - null, ""
+		String param = req.getParameter("paNo");
+		if(param!=null && !"".equals(param)) {
+			//chNo 전달파라미터 추출
+			paNo.setPaNo( Integer.parseInt(param) );
+		}
+
+		//결과 객체 반환
+		return paNo;
+	}
+	@Override
+	public Participation getParticipation(Participation participation) {
+		// TODO Auto-generated method stub
+		return userChallengeDao.selectParticipationReview(JDBCTemplate.getConnection(), participation);
+	}
+	
 }
