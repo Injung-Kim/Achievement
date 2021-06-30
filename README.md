@@ -1,6 +1,7 @@
 # Semi Project(Achivement)
 
-![Semi%20Project(Achivement)%20214aaa7990b743d385d054f1fd64234c.png](<Semi%20Project(Achivement)%20214aaa7990b743d385d054f1fd64234c.png>)
+![메인화면](https://user-images.githubusercontent.com/76034088/123928669-15a94200-d9c9-11eb-8481-c13973eab093.png)
+
 
 ### 💡목표설정 및 도전 프로젝트
 
